@@ -1,0 +1,24 @@
+<ng-container *ngIf="(juego_$ | async) as j">
+
+  <!-- <ng-template> -->
+    <tablero>
+      <ng-container *ngIf="(fichas_$ | async) as fichas">
+        <ng-container *ngIf="(tablero_$ | async) as t">
+          <div *ngFor="let c of t.col; let i = index;" class="row" [style.top]="(c.x - 100) + 'px'" [class.even]="i % 2 == 0 && i != 0"></div>
+          <div *ngFor="let c of t.col; let i = index;" class="col" [ngClass]="j.turno" [class.highlight]="i === j.sCol && !j.fin"
+            [style.left]="c.x + 'px'" (mouseenter)="!j.fin && juego.moverFicha(j, t, fichas, i)" (click)="!j.fin && juego.tirarFicha(j, t, fichas, i)"></div>
+        </ng-container>
+        <ficha *ngFor="let f of fichas.rojo" [ngClass]="f.color" [style.left]="f.pos.x + 'px'" [style.top]="f.pos.y + 'px'"
+          [class.hidden]="!f.visible"></ficha>
+        <ficha *ngFor="let f of fichas.azul" [ngClass]="f.color" [style.left]="f.pos.x + 'px'" [style.top]="f.pos.y + 'px'"
+          [class.hidden]="!f.visible"></ficha>
+      </ng-container>
+      <ng-container *ngIf="j.fin">
+          <gui>
+            <div class="ganador">GANA {{j.ganador.name | uppercase}}</div>
+            <div class="jugar" (click)="jugar()">JUGAR</div>
+          </gui>
+      </ng-container>
+    </tablero>
+  <!-- </ng-template> -->
+</ng-container>
