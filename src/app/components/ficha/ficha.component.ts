@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'ficha',
-  template: `<div class="ficha" [ngClass]="color"></div>`,
+  template: `<div class="ficha"></div>`,
   styles: [`
     :host {
       display: block;
