@@ -8,7 +8,11 @@ import { FichaComponent } from './components/ficha/ficha.component';
 import { TableroComponent } from './components/tablero/tablero.component';
 import { JuegoService } from './services/juego.service';
 import { GuiComponent } from './components/gui/gui.component';
+import { SocketsService } from './services/sockets.service';
 
+import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
+
+const config: SocketIoConfig = { url: 'ws://www.porraeurocopa.com/chat.php', options: {'forceNew': true}};
 
 @NgModule({
   declarations: [
@@ -18,9 +22,10 @@ import { GuiComponent } from './components/gui/gui.component';
     GuiComponent,
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    SocketIoModule.forRoot(config)
   ],
-  providers: [JuegoService, AnimationsService],
+  providers: [JuegoService, AnimationsService, SocketsService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

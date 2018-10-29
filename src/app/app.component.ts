@@ -5,6 +5,7 @@ import { map, timeInterval, tap } from 'rxjs/operators';
 import { Ficha, Fichas } from './models/ficha';
 import { JuegoService } from './services/juego.service';
 import { Juego } from './models/juego';
+import { SocketsService } from './services/sockets.service';
 
 @Component({
   selector: 'app-root',
@@ -17,7 +18,8 @@ export class AppComponent {
   fichas_$: Observable<Fichas>
 
   constructor(
-    public juego: JuegoService
+    public juego: JuegoService,
+    public ws: SocketsService,
   ) {
     this.juego_$ = this.juego.juego_$;
     this.tablero_$ = this.juego.tablero_$;

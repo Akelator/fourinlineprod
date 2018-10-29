@@ -5,18 +5,18 @@ var io = require('socket.io')(server);
 
 var messages = [{
     id: 1,
-    text: 'hola soy u mensaje',
-    author: 'Adrian Riera'
+    text: 'User Connected',
+    author: 'Four In Line'
 }];
 
-app.use(express.static('public'));
+//app.use(express.static('public'));
 
-app.get('/hello', function(re1, res) {
+app.get('/', function(re1, res) {
     res.status(200).send('hola mundo puto');
 });
 
 io.on('connection', function(socket) {
-    console.log('alguien se ha conectado');
+    console.log('user connected');
     socket.emit('messages', messages);
     socket.on('new-message', function(data){
         console.log("nuevo mensaje");
