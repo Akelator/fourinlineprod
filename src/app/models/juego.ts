@@ -4,6 +4,7 @@ import { Color } from './ficha';
 
 export class Juego {
     constructor(
+        public id: string,
         public jugadores: Jugadores,
         public ganador: Jugador = new Jugador(undefined, undefined),
         public turno: Color = Color.azul,

@@ -1,4 +1,4 @@
-import { Jugador } from './../models/juego';
+import { Jugador, Juego, Jugadores } from './../models/juego';
 import { JuegoService } from './juego.service';
 import { Injectable, OnDestroy } from '@angular/core';
 import { Socket } from 'ngx-socket-io';
@@ -6,6 +6,7 @@ import { Socket } from 'ngx-socket-io';
 @Injectable()
 export class SocketsService implements OnDestroy {
   private games = [];
+  private game = null;
   private players = [];
   private player = new Jugador();
 
@@ -22,17 +23,50 @@ export class SocketsService implements OnDestroy {
       this.player = new Jugador(player.id, player.name);
       this.juego.iniciarJugador(this.player);
     });
+
+    this.socket.on('game', game => {
+      let rojo = new Jugador(game.jugadores.rojo.id, game.jugadores.rojo.name);
+      let azul = game.jugadores.azul ? new Jugador(game.jugadores.azul.id, game.jugadores.azul.name) : null;
+      this.game = new Juego(this.player.id, new Jugadores(rojo, azul));
+      this.juego.crearJuego(this.game);
+      if (azul){
+        this.juego.iniciarJuego();
+      }
+    });
+
     this.socket.on('players', players => {
       this.players = players;
-      console.log(this.players);
+      this.juego.actualizarJugadores(this.players);
     });
     this.socket.on('games', games => {
-      this.games = games;
+      this.games = [];
+      games.forEach(g => {
+        this.games.push(new Juego(g.id, new Jugadores(g.jugadores.rojo, g.jugadores.azul)));
+      });
+      this.juego.actualizarJuegos(this.games);
     });
   }
 
   newPlayer(username) {
     this.socket.emit('new-player', username);
+  }
+
+  newGame(){
+    this.socket.emit('new-game', this.player.id)
+  }
+
+  joinGame(id){
+    this.socket.emit('join-game', {gameId: id, playerId: this.player.id});
+  }
+
+  moverFicha(j, t, fichas, i){
+    this.juego.moverFicha(j, t, fichas, i);
+    console.log("mover");
+  }
+
+  tirarFicha(j, t, fichas, i){
+    this.juego.tirarFicha(j, t, fichas, i);
+    console.log("tirar");
   }
 
   disconnect() {

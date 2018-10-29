@@ -1,7 +1,6 @@
 var socket = io.connect('http://localhost:8080',  {'forceNew': true});
 
 socket.on('messages', function(data){
-    console.log(data);
     render(data);
 });
 
@@ -16,12 +15,10 @@ function render(data){
 }
 
 function addMessage(e) {
-    console.log(e);
     var payload = {
         author: document.getElementById('username').value,
         text: document.getElementById('texto').value
     }
-    console.log(payload);
     socket.emit('new-message', payload);
     return false;
 }

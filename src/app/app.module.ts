@@ -13,6 +13,8 @@ import { SocketsService } from './services/sockets.service';
 import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
 import { NewUserFormComponent } from './components/gui/new-user-form/new-user-form.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NewGameFormComponent } from './components/gui/new-game-form/new-game-form.component';
+import { GameListComponent } from './components/gui/new-game-form/game-list/game-list.component';
 
 const config: SocketIoConfig = { url: 'ws://localhost:8080', options: {'forceNew': true}};
 
@@ -23,6 +25,8 @@ const config: SocketIoConfig = { url: 'ws://localhost:8080', options: {'forceNew
     TableroComponent,
     GuiComponent,
     NewUserFormComponent,
+    NewGameFormComponent,
+    GameListComponent,
   ],
   imports: [
     BrowserModule,

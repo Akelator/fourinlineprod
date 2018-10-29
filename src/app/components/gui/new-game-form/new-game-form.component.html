@@ -1,0 +1,15 @@
+<form [formGroup]="form">
+  <div class="label">Games</div>
+  <div class="list">
+    <ng-container *ngIf="juegos else nogames">
+      <game-list [juegos]="juegos" (onJoin)="joinGame($event)">
+      </game-list>
+    </ng-container>
+    <ng-template #nogames>
+      No games available
+    </ng-template>
+  </div>
+  <div class="submit">
+    <input type="submit" value="NEW" (click)="newGame()">
+  </div>
+</form>

@@ -14,6 +14,8 @@ import { SocketsService } from './services/sockets.service';
 })
 export class AppComponent {
   jugador_$: Observable<Jugador>;
+  jugadores_$: Observable<Jugador[]>;
+  juegos_$: Observable<Juego[]>;
   juego_$: Observable<Juego>
   tablero_$: Observable<Tablero>;
   fichas_$: Observable<Fichas>
@@ -23,6 +25,8 @@ export class AppComponent {
     public ws: SocketsService,
   ) {
     this.jugador_$ = this.juego.jugador_$;
+    this.jugadores_$ = this.juego.jugadores_$;
+    this.juegos_$ = this.juego.juegos_$;
     this.juego_$ = this.juego.juego_$;
     this.tablero_$ = this.juego.tablero_$;
     this.fichas_$ = this.juego.fichas_$;
@@ -34,5 +38,13 @@ export class AppComponent {
 
   newUser(username) {
     this.ws.newPlayer(username);
+  }
+
+  newGame(){
+    this.ws.newGame();
+  }
+
+  joinGame(id){
+    this.ws.joinGame(id);
   }
 }

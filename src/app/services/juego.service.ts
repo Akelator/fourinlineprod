@@ -9,8 +9,12 @@ import { AnimationsService } from './animations.service';
 
 @Injectable()
 export class JuegoService {
+  private _jugadores = new BehaviorSubject<Jugador[]>(null);
+  jugadores_$ = this._jugadores.asObservable();
   private _jugador = new BehaviorSubject<Jugador>(null);
   jugador_$ = this._jugador.asObservable();
+  private _juegos = new BehaviorSubject<Juego[]>(null);
+  juegos_$ = this._juegos.asObservable();
   private _juego = new BehaviorSubject<Juego>(null);
   juego_$ = this._juego.asObservable();
   private _tablero = new BehaviorSubject<Tablero>(new Tablero());
@@ -18,7 +22,9 @@ export class JuegoService {
   private _fichas = new BehaviorSubject<Fichas>(new Fichas());
   fichas_$ = this._fichas.asObservable();
 
+  private jugadores = this._jugadores.value;
   private jugador = this._jugador.value;
+  private juegos = this._juegos.value;
   private juego = this._juego.value;
   private tablero = this._tablero.value;
   private fichas = this._fichas.value;
@@ -29,21 +35,31 @@ export class JuegoService {
     this.iniciarTablero(this.tablero);
     //this.startGame();
   }
-
+  public actualizarJugadores(jugadores){
+    this.jugadores = jugadores;
+    this._jugadores.next(this.jugadores);
+  }
+  public actualizarJuegos(juegos){
+    this.juegos = juegos;
+    this._juegos.next(this.juegos);
+  }
   public iniciarJugador(jugador: Jugador){
     this.jugador = jugador;
     this._jugador.next(this.jugador);
   }
 
-  public startGame(){
+  public crearJuego(juego){
+    this.juego = juego;
     this._juego.next(this.juego);
-    this.iniciarTablero(this.tablero);  
+  }
+
+  public iniciarJuego(){
     this.iniciarFichas(this.fichas);
     this.avanzarFicha(this.juego, this.fichas);
   }
 
   public restart(){
-    this.juego = new Juego(new Jugadores(this.juego.jugadores.rojo, this.juego.jugadores.azul));
+    //this.juego = new Juego(new Jugadores(this.juego.jugadores.rojo, this.juego.jugadores.azul));
     this.tablero = new Tablero();
     this.fichas = new Fichas(),
     this._juego.next(this.juego);
@@ -53,10 +69,10 @@ export class JuegoService {
     this.iniciarFichas(this.fichas);
     this.avanzarFicha(this.juego, this.fichas);
   }
-  public moverFicha(j: Juego, t: Tablero, f: Fichas, col: number) {
+  public moverFicha(j: Juego, t: Tablero, fs: Fichas, col: number) {
     if (!j.fin) {
       j.sCol = col;
-      this.anim.mover(f[j.turno][j.nFicha], t.col[col], 0.1);
+      this.anim.mover(fs[j.turno][j.nFicha], t.col[col], 0.1);
     }
   }
 

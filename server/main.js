@@ -12,28 +12,87 @@ var players = [];
 io.on('connection', function (socket) {
   socket.on('new-player', function (username) {
     console.log('TRY TO ADD PLAYER');
-    var id = this.client.id;
+    var id = this.id;
     if (!players.find(p => p.id === id || p.name === username)) {
       var newPlayer = {
-        id: this.client.id,
+        id: this.id,
         name: username
       }
       socket.emit('new-player', newPlayer);
       players.push(newPlayer);
-      io.sockets.emit('games', games);
       io.sockets.emit('players', players);
+      io.sockets.emit('games', games);
       console.log("- PLAYER ADDED");
     } else {
       console.log("- ALREDY EXISTS");
     }
   });
+  
+  socket.on('new-game', function (playerId){
+    var player = players.find(p => p.id === playerId);
+    var newGame = {
+      id: playerId,
+      jugadores: {
+        rojo: player,
+        azul: null,
+      }
+    };
+    socket.emit('game', newGame);
+    games.push(newGame);
+    io.sockets.emit('games', games);
+  });
+
+  socket.on('join-game', function (data){
+    var player = players.find(p => p.id === data.playerId);
+    var game = games.find(g => g.id === data.gameId);
+    game.jugadores.azul = player;
+    io.sockets.connected[data.gameId].emit('game', game);
+    socket.emit('game', game);
+    io.sockets.emit('games', games);
+  });
+
 
   socket.on('disconnect', function () {
-      console.log("PLAYER REMOVED");
-      var id = this.client.id;
-      players.splice((players.indexOf(players.find(p => p.id === id)), 1));
-      io.sockets.emit('players', players);
+      
+      var id = this.id;
+      var playerIndex = players.indexOf(players.find(p => p.id === id));
+      if (playerIndex >= 0){
+        players.splice(playerIndex, 1);
+        io.sockets.emit('players', players);
+        console.log("PLAYER " +playerIndex+ " REMOVED");
+      }
+ 
+      var gameIndex = games.indexOf(games.find(g => g.id === id));
+      if (gameIndex >= 0){
+        if (games[gameIndex].jugadores.azul){
+          games[gameIndex].id = games[gameIndex].jugadores.azul.id;
+          games[gameIndex].jugadores.rojo = games[gameIndex].jugadores.azul;
+          games[gameIndex].jugadores.azul = null;  
+          io.sockets.connected[games[gameIndex].id].emit('game', games[gameIndex]);    
+          io.sockets.emit('games', games);
+          console.log("GAME " +gameIndex+ " SWAP BLUE TO RED");  
+        }
+        else{
+          games.splice(gameIndex, 1); 
+          io.sockets.emit('games', games);
+          console.log("GAME " +gameIndex+ " REMOVED");
+        }
+
+      } else {
+        gameIndex = games.indexOf(games.find(g => {
+          return g.jugadores.azul ? g.jugadores.azul.id === id : null;
+        }));
+        if (gameIndex >= 0){
+          games[gameIndex].jugadores.azul = null;     
+          io.sockets.connected[games[gameIndex].id].emit('game', games[gameIndex]);   
+          io.sockets.emit('games', games);
+          console.log("GAME " +gameIndex+ " LEAVE BLUE FREE");  
+        }
+      }
+      
   });
+
+
 });
 
 server.listen(8080, function () {
