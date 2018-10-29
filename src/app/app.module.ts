@@ -11,6 +11,8 @@ import { GuiComponent } from './components/gui/gui.component';
 import { SocketsService } from './services/sockets.service';
 
 import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
+import { NewUserFormComponent } from './components/gui/new-user-form/new-user-form.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 const config: SocketIoConfig = { url: 'ws://localhost:8080', options: {'forceNew': true}};
 
@@ -20,9 +22,12 @@ const config: SocketIoConfig = { url: 'ws://localhost:8080', options: {'forceNew
     FichaComponent,
     TableroComponent,
     GuiComponent,
+    NewUserFormComponent,
   ],
   imports: [
     BrowserModule,
+    FormsModule,
+    ReactiveFormsModule,
     SocketIoModule.forRoot(config)
   ],
   providers: [JuegoService, AnimationsService, SocketsService],

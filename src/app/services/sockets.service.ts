@@ -1,24 +1,44 @@
-import { Injectable } from '@angular/core';
+import { Jugador } from './../models/juego';
+import { JuegoService } from './juego.service';
+import { Injectable, OnDestroy } from '@angular/core';
 import { Socket } from 'ngx-socket-io';
-import * as Rx from 'rxjs/Rx';
+
 @Injectable()
-export class SocketsService {
+export class SocketsService implements OnDestroy {
+  private games = [];
+  private players = [];
+  private player = new Jugador();
 
   constructor(
-    // private conn: WebSocket,
     private socket: Socket,
-  ) { 
-    // this.conn = new WebSocket('ws://localhost:8080');
-    // this.conn.onopen = function(e) {
-    //   console.log("connection strablished");
-    // }
-    // this.conn.onmessage = function(e) {
-    //   console.log(e.data);
-    // }
+    private juego: JuegoService,
+  ) {
+    this.connect();
+  }
+
+  private connect() {
     this.socket.connect();
-    this.socket.on('connection', data => {
-      console.log(data);
+    this.socket.on('new-player', player => {
+      this.player = new Jugador(player.id, player.name);
+      this.juego.iniciarJugador(this.player);
+    });
+    this.socket.on('players', players => {
+      this.players = players;
+      console.log(this.players);
+    });
+    this.socket.on('games', games => {
+      this.games = games;
     });
   }
 
+  newPlayer(username) {
+    this.socket.emit('new-player', username);
+  }
+
+  disconnect() {
+    this.socket.disconnect();
+  }
+  ngOnDestroy() {
+    this.disconnect();
+  }
 }

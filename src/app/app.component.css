@@ -30,3 +30,7 @@
     height: 100vh;
     background: white;
 }
+
+:host pre{
+    position:fixed; 
+}

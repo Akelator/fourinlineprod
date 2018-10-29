@@ -6,43 +6,36 @@ var io = require('socket.io')(server);
 
 var games = [];
 var players = [];
+
 //app.use(express.static('dist'));
 
-// app.get('/', function(re1, res) {
-//     res.status(200).send('hola mundo puto');
-// });
+io.on('connection', function (socket) {
+  socket.on('new-player', function (username) {
+    console.log('TRY TO ADD PLAYER');
+    var id = this.client.id;
+    if (!players.find(p => p.id === id || p.name === username)) {
+      var newPlayer = {
+        id: this.client.id,
+        name: username
+      }
+      socket.emit('new-player', newPlayer);
+      players.push(newPlayer);
+      io.sockets.emit('games', games);
+      io.sockets.emit('players', players);
+      console.log("- PLAYER ADDED");
+    } else {
+      console.log("- ALREDY EXISTS");
+    }
+  });
 
-io.on('connection', function(socket) {
-    console.log('user connected');
-
-    socket.emit('connection', 'conection done');
-    socket.on('new-message', function(data){
-        console.log("nuevo mensaje");
-        messages.push(data);
-        io.sockets.emit('messages', messages);
-    });
-    socket.on('join-game', function(data){
-        players.push(newPlayer(data));
-        games.push(newGame(data));
-        io.sockets.emit('players', players);
-        io.sockets.emit('games', games);
-    });
+  socket.on('disconnect', function () {
+      console.log("PLAYER REMOVED");
+      var id = this.client.id;
+      players.splice((players.indexOf(players.find(p => p.id === id)), 1));
+      io.sockets.emit('players', players);
+  });
 });
 
-server.listen(8080, function() {
-    console.log('Servidor corriendo eh http://localhost:8080');
+server.listen(8080, function () {
+  console.log('SERVER RUNNING ON http://localhost:8080');
 });
-
-function newPlayer(player){
-    return {
-        id: player.id,
-        name: player.name,
-    }
-}
-function newGame(data){
-    return {
-        id: games.length,
-        player1: data.playerId
-
-    }
-}

@@ -1,5 +1,6 @@
+import { SocketsService } from './sockets.service';
 import { map } from 'rxjs/operators';
-import { Juego } from './../models/juego';
+import { Juego, Jugador, Jugadores } from './../models/juego';
 import { Tablero, Columna, Casilla } from './../models/tablero';
 import { BehaviorSubject } from 'rxjs';
 import { Injectable } from '@angular/core';
@@ -8,13 +9,16 @@ import { AnimationsService } from './animations.service';
 
 @Injectable()
 export class JuegoService {
-  private _juego = new BehaviorSubject<Juego>(new Juego());
+  private _jugador = new BehaviorSubject<Jugador>(null);
+  jugador_$ = this._jugador.asObservable();
+  private _juego = new BehaviorSubject<Juego>(null);
   juego_$ = this._juego.asObservable();
   private _tablero = new BehaviorSubject<Tablero>(new Tablero());
   tablero_$ = this._tablero.asObservable();
   private _fichas = new BehaviorSubject<Fichas>(new Fichas());
   fichas_$ = this._fichas.asObservable();
 
+  private jugador = this._jugador.value;
   private juego = this._juego.value;
   private tablero = this._tablero.value;
   private fichas = this._fichas.value;
@@ -23,12 +27,23 @@ export class JuegoService {
     private anim: AnimationsService,
   ) {
     this.iniciarTablero(this.tablero);
+    //this.startGame();
+  }
+
+  public iniciarJugador(jugador: Jugador){
+    this.jugador = jugador;
+    this._jugador.next(this.jugador);
+  }
+
+  public startGame(){
+    this._juego.next(this.juego);
+    this.iniciarTablero(this.tablero);  
     this.iniciarFichas(this.fichas);
     this.avanzarFicha(this.juego, this.fichas);
   }
 
   public restart(){
-    this.juego = new Juego();
+    this.juego = new Juego(new Jugadores(this.juego.jugadores.rojo, this.juego.jugadores.azul));
     this.tablero = new Tablero();
     this.fichas = new Fichas(),
     this._juego.next(this.juego);
@@ -66,7 +81,7 @@ export class JuegoService {
         .takeWhile(fin => {
           if (fin) {
             t.col[col].row[row].ficha = fs[j.turno][j.nFicha];
-            j.fin = this.hayGanador(j, t, fs, col, row) || !this.avanzarFicha(j, fs);
+            j.fin = this.hayGanador(j, t, col, row) || !this.avanzarFicha(j, fs);
           }
           return !fin
         }).subscribe();
@@ -106,46 +121,46 @@ export class JuegoService {
     return row;
   }
 
-  private hayGanador(juego: Juego, tablero: Tablero, fichas: Fichas, col: number, row: number) {
+  private hayGanador(j: Juego, t: Tablero, col: number, row: number) {
     let nH = 1; let nV = 1; let nD1 = 1; let nD2 = 1;
     for (let x = col + 1; x <= 6; x++) {
-      if (this.match(juego, tablero, x, row)) nH++;
+      if (this.match(j, t, x, row)) nH++;
       else break;
     }
     for (let x = col - 1; x >= 0; x--) {
-      if (this.match(juego, tablero, x, row)) nH++;
+      if (this.match(j, t, x, row)) nH++;
       else break;
     }
     for (let y = row + 1; y <= 5; y++) {
-      if (this.match(juego, tablero, col, y)) nV++;
+      if (this.match(j, t, col, y)) nV++;
       else break;
     }
     for (let y = row - 1; y >= 0; y--) {
-      if (this.match(juego, tablero, col, y)) nV++;
+      if (this.match(j, t, col, y)) nV++;
       else break;
     }
     let x = col; let y = row;
     while (x < 6 && y < 5) {
       x++; y++;
-      if (this.match(juego, tablero, x, y)) nD1++;
+      if (this.match(j, t, x, y)) nD1++;
     }
     x = col; y = row;
     while (x > 0 && y > 0) {
       x--; y--;
-      if (this.match(juego, tablero, x, y)) nD1++;
+      if (this.match(j, t, x, y)) nD1++;
     }
     x = col; y = row;
     while (x < 6 && y > 0) {
       x++; y--;
-      if (this.match(juego, tablero, x, y)) nD2++;
+      if (this.match(j, t, x, y)) nD2++;
     }
     x = col; y = row;
     while (x > 0 && y < 5) {
       x--; y++;
-      if (this.match(juego, tablero, x, y)) nD2++;
+      if (this.match(j, t, x, y)) nD2++;
     }
     let hayGanador = nH >= 4 || nV >= 4 || nD1 >= 4 || nD2 >= 4
-    if (hayGanador) juego.ganador = juego.jugadores[juego.turno];
+    if (hayGanador) j.ganador = j.jugadores[j.turno];
     return hayGanador;
   }
 

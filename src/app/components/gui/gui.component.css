@@ -11,12 +11,18 @@
   top: 180px;
   left: 100px;
 }
+
 ::ng-deep .ganador{
     font-size: 20px;
     text-align: center; 
     padding:20px;
 }
-::ng-deep .jugar{
+
+::ng-deep .options{
+    display:flex;
+}
+
+::ng-deep .button{
     display:block;
     width:160px;
     line-height: 50px;
@@ -24,9 +30,10 @@
     background:#2998BC;
     color:white;
     text-align: center; 
+    margin:0px 5px 0px 5px;
 }
 
-::ng-deep .jugar:hover{
+::ng-deep .button:hover{
     background: #32a1cf;
     cursor: pointer;
 }

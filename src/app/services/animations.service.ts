@@ -1,9 +1,7 @@
-import { map } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
-import { Ficha, Pos, Fichas, Color } from '../models/ficha';
+import { Ficha, Pos } from '../models/ficha';
 import { Columna, Casilla } from '../models/tablero';
-import { Juego } from '../models/juego';
-import { Observable, Subscription } from 'rxjs';
+import { Observable } from 'rxjs';
 
 @Injectable()
 export class AnimationsService {
