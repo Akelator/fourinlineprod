@@ -27,8 +27,8 @@ io.on('connection', function (socket) {
       console.log("- ALREDY EXISTS");
     }
   });
-  
-  socket.on('new-game', function (playerId){
+
+  socket.on('new-game', function (playerId) {
     var player = players.find(p => p.id === playerId);
     var newGame = {
       id: playerId,
@@ -42,7 +42,7 @@ io.on('connection', function (socket) {
     io.sockets.emit('games', games);
   });
 
-  socket.on('join-game', function (data){
+  socket.on('join-game', function (data) {
     var player = players.find(p => p.id === data.playerId);
     var game = games.find(g => g.id === data.gameId);
     game.jugadores.azul = player;
@@ -51,45 +51,51 @@ io.on('connection', function (socket) {
     io.sockets.emit('games', games);
   });
 
-
+  socket.on('mover-ficha', function (data) {
+    console.log("MOVER FICHA")
+    let listenerId = (data.juego.turno === 'rojo') ? data.juego.jugadores.azul.id : data.juego.jugadores.rojo.id;
+    io.sockets.connected[listenerId].emit('mover-ficha', data);
+  });
+  socket.on('tirar-ficha', function (data) {
+    console.log("TIRAR FICHA")
+    let listenerId = (data.juego.turno === 'rojo') ? data.juego.jugadores.azul.id : data.juego.jugadores.rojo.id;
+    io.sockets.connected[listenerId].emit('tirar-ficha', data);
+  });
   socket.on('disconnect', function () {
-      
-      var id = this.id;
-      var playerIndex = players.indexOf(players.find(p => p.id === id));
-      if (playerIndex >= 0){
-        players.splice(playerIndex, 1);
-        io.sockets.emit('players', players);
-        console.log("PLAYER " +playerIndex+ " REMOVED");
-      }
- 
-      var gameIndex = games.indexOf(games.find(g => g.id === id));
-      if (gameIndex >= 0){
-        if (games[gameIndex].jugadores.azul){
-          games[gameIndex].id = games[gameIndex].jugadores.azul.id;
-          games[gameIndex].jugadores.rojo = games[gameIndex].jugadores.azul;
-          games[gameIndex].jugadores.azul = null;  
-          io.sockets.connected[games[gameIndex].id].emit('game', games[gameIndex]);    
-          io.sockets.emit('games', games);
-          console.log("GAME " +gameIndex+ " SWAP BLUE TO RED");  
-        }
-        else{
-          games.splice(gameIndex, 1); 
-          io.sockets.emit('games', games);
-          console.log("GAME " +gameIndex+ " REMOVED");
-        }
 
+    var id = this.id;
+    var playerIndex = players.indexOf(players.find(p => p.id === id));
+    if (playerIndex >= 0) {
+      players.splice(playerIndex, 1);
+      io.sockets.emit('players', players);
+      console.log("PLAYER " + playerIndex + " REMOVED");
+    }
+
+    var gameIndex = games.indexOf(games.find(g => g.id === id));
+    if (gameIndex >= 0) {
+      if (games[gameIndex].jugadores.azul) {
+        games[gameIndex].id = games[gameIndex].jugadores.azul.id;
+        games[gameIndex].jugadores.rojo = games[gameIndex].jugadores.azul;
+        games[gameIndex].jugadores.azul = null;
+        io.sockets.connected[games[gameIndex].id].emit('game', games[gameIndex]);
+        io.sockets.emit('games', games);
+        console.log("GAME " + gameIndex + " SWAP BLUE TO RED");
       } else {
-        gameIndex = games.indexOf(games.find(g => {
-          return g.jugadores.azul ? g.jugadores.azul.id === id : null;
-        }));
-        if (gameIndex >= 0){
-          games[gameIndex].jugadores.azul = null;     
-          io.sockets.connected[games[gameIndex].id].emit('game', games[gameIndex]);   
-          io.sockets.emit('games', games);
-          console.log("GAME " +gameIndex+ " LEAVE BLUE FREE");  
-        }
+        games.splice(gameIndex, 1);
+        io.sockets.emit('games', games);
+        console.log("GAME " + gameIndex + " REMOVED");
       }
-      
+    } else {
+      gameIndex = games.indexOf(games.find(g => {
+        return g.jugadores.azul ? g.jugadores.azul.id === id : null;
+      }));
+      if (gameIndex >= 0) {
+        games[gameIndex].jugadores.azul = null;
+        io.sockets.connected[games[gameIndex].id].emit('game', games[gameIndex]);
+        io.sockets.emit('games', games);
+        console.log("GAME " + gameIndex + " LEAVE BLUE FREE");
+      }
+    }
   });
 
 

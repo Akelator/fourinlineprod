@@ -58,8 +58,16 @@ export class JuegoService {
     this.avanzarFicha(this.juego, this.fichas);
   }
 
+  public borrarJuego(){
+    this.tablero = new Tablero();
+    this.fichas = new Fichas(),
+    this._juego.next(this.juego);
+    this._tablero.next(this.tablero);
+    this._fichas.next(this.fichas);
+    this.iniciarTablero(this.tablero);
+  }
+
   public restart(){
-    //this.juego = new Juego(new Jugadores(this.juego.jugadores.rojo, this.juego.jugadores.azul));
     this.tablero = new Tablero();
     this.fichas = new Fichas(),
     this._juego.next(this.juego);
@@ -69,10 +77,33 @@ export class JuegoService {
     this.iniciarFichas(this.fichas);
     this.avanzarFicha(this.juego, this.fichas);
   }
+  public tirando = false;
   public moverFicha(j: Juego, t: Tablero, fs: Fichas, col: number) {
+    this._juego.next(j);
+    this._tablero.next(t);
+    this._fichas.next(fs);
     if (!j.fin) {
       j.sCol = col;
       this.anim.mover(fs[j.turno][j.nFicha], t.col[col], 0.1);
+    }
+  }
+
+  public tirarFicha(j: Juego, t: Tablero, fs: Fichas, col: number) {
+    this._juego.next(j);
+    this._tablero.next(t);
+    this._fichas.next(fs);
+    j.sCol = col;
+    let row = this.getFreeRow(t.col[col]);
+    if (row >= 0) {
+      this.anim.tirar(fs[j.turno][j.nFicha], t.col[col].row[row], 0.1 + row * 0.04)
+        .takeWhile(fin => {
+          if (fin) {
+            t.col[col].row[row].ficha = fs[j.turno][j.nFicha];
+            j.fin = this.hayGanador(j, t, col, row) || !this.avanzarFicha(j, fs);
+            this.tirando = false;
+          }
+          return !fin
+        }).subscribe();
     }
   }
 
@@ -89,20 +120,7 @@ export class JuegoService {
     }
   }
 
-  public tirarFicha(j: Juego, t: Tablero, fs: Fichas, col: number) {
-    j.sCol = col;
-    let row = this.getFreeRow(t.col[col]);
-    if (row >= 0) {
-      this.anim.tirar(fs[j.turno][j.nFicha], t.col[col].row[row], 0.1 + row * 0.04)
-        .takeWhile(fin => {
-          if (fin) {
-            t.col[col].row[row].ficha = fs[j.turno][j.nFicha];
-            j.fin = this.hayGanador(j, t, col, row) || !this.avanzarFicha(j, fs);
-          }
-          return !fin
-        }).subscribe();
-    }
-  }
+
 
   private iniciarTablero(tablero: Tablero) {
     for (let c = 0; c < 7; c++) {

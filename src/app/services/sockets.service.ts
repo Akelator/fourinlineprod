@@ -25,6 +25,7 @@ export class SocketsService implements OnDestroy {
     });
 
     this.socket.on('game', game => {
+      this.juego.borrarJuego();
       let rojo = new Jugador(game.jugadores.rojo.id, game.jugadores.rojo.name);
       let azul = game.jugadores.azul ? new Jugador(game.jugadores.azul.id, game.jugadores.azul.name) : null;
       this.game = new Juego(this.player.id, new Jugadores(rojo, azul));
@@ -45,6 +46,12 @@ export class SocketsService implements OnDestroy {
       });
       this.juego.actualizarJuegos(this.games);
     });
+    this.socket.on('mover-ficha', data => {
+      this.juego.moverFicha(data.juego, data.tablero, data.fichas, data.i);
+    });
+    this.socket.on('tirar-ficha', data => {
+      this.juego.tirarFicha(data.juego, data.tablero, data.fichas, data.i);
+    });
   }
 
   newPlayer(username) {
@@ -58,15 +65,32 @@ export class SocketsService implements OnDestroy {
   joinGame(id){
     this.socket.emit('join-game', {gameId: id, playerId: this.player.id});
   }
-
+  
   moverFicha(j, t, fichas, i){
-    this.juego.moverFicha(j, t, fichas, i);
-    console.log("mover");
+    if (!this.juego.tirando){
+      this.juego.moverFicha(j, t, fichas, i);
+      let data = {
+        juego: j,
+        tablero: t,
+        fichas: fichas,
+        i: i
+      }
+      this.socket.emit('mover-ficha', data);
+    }
   }
 
   tirarFicha(j, t, fichas, i){
-    this.juego.tirarFicha(j, t, fichas, i);
-    console.log("tirar");
+    if (!this.juego.tirando){
+      this.juego.tirando = true;
+      this.juego.tirarFicha(j, t, fichas, i);
+      let data = {
+        juego: j,
+        tablero: t,
+        fichas: fichas,
+        i: i
+      }
+      this.socket.emit('tirar-ficha', data);
+    }
   }
 
   disconnect() {
