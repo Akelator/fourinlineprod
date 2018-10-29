@@ -4,8 +4,8 @@
   "license": "MIT",
   "scripts": {
     "ng": "ng",
-    "start": "npm-run-all --parallel start-server start-watch",
-    "start-watch": "ng serve",
+    "start": "npm-run-all --parallel start-server start-client",
+    "start-client": "ng serve -o",
     "start-server": "nodemon server/main.js",
     "build": "ng build --prod",
     "test": "ng test",

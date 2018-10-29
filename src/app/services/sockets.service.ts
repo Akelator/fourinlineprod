@@ -16,7 +16,7 @@ export class SocketsService {
     //   console.log(e.data);
     // }
     this.socket.connect();
-    this.socket.on('messages', data => {
+    this.socket.on('connection', data => {
       console.log(data);
     });
   }

@@ -12,7 +12,7 @@ import { SocketsService } from './services/sockets.service';
 
 import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
 
-const config: SocketIoConfig = { url: 'ws://www.porraeurocopa.com/chat.php', options: {'forceNew': true}};
+const config: SocketIoConfig = { url: 'ws://localhost:8080', options: {'forceNew': true}};
 
 @NgModule({
   declarations: [

@@ -117,11 +117,11 @@ export class JuegoService {
       else break;
     }
     for (let y = row + 1; y <= 5; y++) {
-      if (this.match(juego, tablero, col, y)) nH++;
+      if (this.match(juego, tablero, col, y)) nV++;
       else break;
     }
     for (let y = row - 1; y >= 0; y--) {
-      if (this.match(juego, tablero, col, y)) nH++;
+      if (this.match(juego, tablero, col, y)) nV++;
       else break;
     }
     let x = col; let y = row;
