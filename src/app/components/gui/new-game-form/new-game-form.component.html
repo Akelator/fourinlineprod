@@ -1,7 +1,7 @@
 <form [formGroup]="form">
   <div class="label">Games</div>
   <div class="list">
-    <ng-container *ngIf="juegos else nogames">
+    <ng-container *ngIf="juegos?.length > 0 else nogames">
       <game-list [juegos]="juegos" (onJoin)="joinGame($event)">
       </game-list>
     </ng-container>

@@ -32,7 +32,7 @@ export class AppComponent {
     this.fichas_$ = this.juego.fichas_$;
   }
   
-  jugar() {
+  restart() {
     this.juego.restart();
   }
 
