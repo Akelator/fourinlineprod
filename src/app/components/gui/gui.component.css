@@ -37,3 +37,20 @@
     background: #32a1cf;
     cursor: pointer;
 }
+
+::ng-deep input{
+    padding:10px;
+    margin:5px;
+}
+::ng-deep input[type="submit"]{
+    width:calc(100% - 10px);
+    cursor:pointer;
+    border:none;
+    outline:none;
+    background:#2998BC;
+    color:white;
+}
+
+::ng-deep input[type="submit"]:hover{
+    background:#32a1cf;
+}
