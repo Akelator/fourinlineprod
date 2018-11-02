@@ -1,15 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from "@angular/core";
 
 @Component({
-  selector: 'end-game-form',
-  templateUrl: './end-game-form.component.html',
-  styleUrls: ['./end-game-form.component.css']
+  selector: "end-game-form",
+  templateUrl: "./end-game-form.component.html",
+  styleUrls: ["./end-game-form.component.css"]
 })
-export class EndGameFormComponent implements OnInit {
+export class EndGameFormComponent {
+  @Input() game;
+  @Output() onRestart = new EventEmitter<string>();
 
-  constructor() { }
-
-  ngOnInit() {
+  restart(){
+    this.onRestart.next(this.game.id);
   }
-
 }

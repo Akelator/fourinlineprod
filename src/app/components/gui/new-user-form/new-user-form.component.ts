@@ -10,7 +10,7 @@ import { BehaviorSubject } from 'rxjs';
 export class NewUserFormComponent {
 
   @Output() onJoin = new EventEmitter<string>();
-  private form: FormGroup;
+  public form: FormGroup;
 
   public get username(){
     return this.form.get('username');
