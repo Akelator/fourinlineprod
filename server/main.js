@@ -99,6 +99,6 @@ io.on('connection', function (socket) {
 
 });
 
-server.listen(8080, function () {
+server.listen(process.env.PORT, function () {
   console.log('SERVER RUNNING ON ' + process.env.PORT);
 });
