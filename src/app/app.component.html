@@ -16,17 +16,18 @@
         </ng-container>
         <ng-template #waiting>
           <gui>
-              <div class="waiting">Waiting for oponent...</div>
+            <div class="waiting">
+              <div class="grow"></div>
+                <div class="align-center">WAITING FOR AN OPONENT...</div>
+              <div class="grow"></div>
+            </div>
           </gui>
         </ng-template>
       </ng-container>
 
       <ng-container *ngIf="j.fin">
         <gui>
-          <div class="ganador">GANA {{j.ganador.name | uppercase}}</div>
-          <div class="options">
-            <div class="button" (click)="restart()">RESTART</div>
-          </div>
+          RESTART FORM
         </gui>
       </ng-container>
     </tablero>

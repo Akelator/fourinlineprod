@@ -15,6 +15,7 @@ import { NewUserFormComponent } from './components/gui/new-user-form/new-user-fo
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NewGameFormComponent } from './components/gui/new-game-form/new-game-form.component';
 import { GameListComponent } from './components/gui/new-game-form/game-list/game-list.component';
+import { EndGameFormComponent } from './components/gui/end-game-form/end-game-form.component';
 
 const config: SocketIoConfig = { url: 'ws://localhost:8080', options: {'forceNew': true}};
 
@@ -27,6 +28,7 @@ const config: SocketIoConfig = { url: 'ws://localhost:8080', options: {'forceNew
     NewUserFormComponent,
     NewGameFormComponent,
     GameListComponent,
+    EndGameFormComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,9 +1,16 @@
-<form [formGroup]="form" (submit)="join()">
+<form [formGroup]="form"
+      (submit)="join()">
 
-  <div class="input">
-    <input type="text" placeholder="YOUR NAME" [class.invalid]="username.touched && !username.valid" formControlName="username">
-  </div>
-  <div class="submit">
-    <input type="submit" [disabled]="!form.valid" value="JOIN">
+  <div class="grow"></div>
+  <input type="text"
+         placeholder="YOUR NAME"
+         [class.invalid]="username.touched && !username.valid"
+         formControlName="username">
+
+  <div class="grow"></div>
+  <div class="options">
+    <input type="submit"
+           [disabled]="!form.valid"
+           value="JOIN">
   </div>
 </form>
