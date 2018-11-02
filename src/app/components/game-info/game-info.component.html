@@ -1,6 +1,6 @@
 <div class="player-box" [class.highlight-red]="game.turno == 'rojo'">
   <div class="red-player" [class.blink]="game.turno == 'rojo' && player.id == game.jugadores[game.turno].id">
-    {{game.jugadores.rojo.name}}
+    {{game.jugadores.rojo.name | uppercase}}
   </div>
 </div>
 <div class="box-vs">
@@ -8,6 +8,6 @@
 </div>
 <div class="player-box" [class.highlight-blue]="game.turno == 'azul'">
   <div class="blue-player" [class.blink]="game.turno == 'azul' && player.id == game.jugadores[game.turno].id">
-    {{game.jugadores.azul.name}}
+    {{game.jugadores.azul.name | uppercase}}
   </div>
 </div>
