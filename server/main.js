@@ -7,7 +7,7 @@ var io = require('socket.io')(server);
 var games = [];
 var players = [];
 
-//app.use(express.static('dist'));
+app.use(express.static('./public'));
 
 io.on('connection', function (socket) {
   socket.on('new-player', function (username) {
@@ -100,5 +100,5 @@ io.on('connection', function (socket) {
 });
 
 server.listen(8080, function () {
-  console.log('SERVER RUNNING ON http://localhost:8080');
+  console.log('SERVER RUNNING ON ' + process.env.PORT);
 });
