@@ -8,6 +8,7 @@
           (mouseenter)="j.jugadores.azul && !j.fin && j.jugadores[j.turno].id == jugador.id && ws.moverFicha(j, t, fichas, i)"
           (click)="j.jugadores.azul && !j.fin && j.jugadores[j.turno].id == jugador.id && ws.tirarFicha(j, t, fichas, i)"></div>
         <ng-container *ngIf="j.jugadores.azul else waiting">
+          <game-info [game]="j" [player]="jugador"></game-info>
           <ficha *ngFor="let f of fichas.rojo" [ngClass]="f.color" [style.left]="f.pos.x + 'px'" [style.top]="f.pos.y + 'px'"
             [class.hidden]="!f.visible"></ficha>
           <ficha *ngFor="let f of fichas.azul" [ngClass]="f.color" [style.left]="f.pos.x + 'px'" [style.top]="f.pos.y + 'px'"
@@ -23,17 +24,13 @@
           </gui>
         </ng-template>
       </ng-container>
-
       <ng-container *ngIf="j.fin">
         <gui>
           RESTART FORM
         </gui>
       </ng-container>
     </tablero>
-
   </ng-container>
-
-  <!-- </ng-template> -->
 </ng-container>
 
 <ng-template #formconnection>

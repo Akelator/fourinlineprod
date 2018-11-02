@@ -1,42 +1,46 @@
 :host {
-    --content-dark-blue: #2B487A;
-    --content-medium-blue: #1b709f;
-    --content-light-blue: #859DBD;
-    --focus-yellow: #F0A322;
-    --attention-orange: #F16722;
-    --warning-red: #F20012;
-    --confirm-blue: #2998BC;
-    --white: #FFFFFF;
-    --action-grey: #3a3a3a;
-    --supportive-grey: #A0A0A0;
-    --supportive-light-grey: #C0C0C0;
-    --supportive-blue: #A6CAE1;
-    --supportive-light-blue: #DFEAED;
-    --supportive-beige: #E2DFCC;
-    --marketing-green: #7FC13D;
-    --none: #00000000;
-    --highlight: #FFFFFF22;
-  }
+  --content-dark-blue: #2B487A;
+  --content-medium-blue: #1b709f;
+  --content-light-blue: #859DBD;
+  --focus-yellow: #F0A322;
+  --attention-orange: #F16722;
+  --warning-red: #F20012;
+  --confirm-blue: #2998BC;
+  --white: #FFFFFF;
+  --action-grey: #3a3a3a;
+  --supportive-grey: #A0A0A0;
+  --supportive-light-grey: #C0C0C0;
+  --supportive-blue: #A6CAE1;
+  --supportive-light-blue: #DFEAED;
+  --supportive-beige: #E2DFCC;
+  --marketing-green: #7FC13D;
+  --none: #00000000;
+  --highlight: #FFFFFF22;
+}
 
-::ng-deep body{
-    margin:0px;
-    padding:0px;
-    font-family: 'Courier New', Courier, monospace;
+::ng-deep body {
+  margin: 0px;
+  padding: 0px;
+  font-family: 'Courier New', Courier, monospace;
 }
-::ng-deep input{
-    font-family: 'Courier New', Courier, monospace;
+
+::ng-deep input {
+  text-transform: uppercase;
+  font-family: 'Courier New', Courier, monospace;
 
 }
-::ng-deep button{
-    font-family: 'Courier New', Courier, monospace;
+
+::ng-deep button {
+  font-family: 'Courier New', Courier, monospace;
 }
+
 :host {
-    display: flex;
-    width: 100vw;
-    height: 100vh;
-    background: white;
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  background: white;
 }
 
-:host pre{
-    position:fixed; 
+:host pre {
+  position: fixed;
 }

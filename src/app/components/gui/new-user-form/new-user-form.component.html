@@ -5,7 +5,8 @@
   <input type="text"
          placeholder="YOUR NAME"
          [class.invalid]="username.touched && !username.valid"
-         formControlName="username">
+         formControlName="username"
+         maxlength="12">
 
   <div class="grow"></div>
   <div class="options">
