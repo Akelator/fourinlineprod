@@ -18,7 +18,7 @@ import { GameListComponent } from './components/gui/new-game-form/game-list/game
 import { EndGameFormComponent } from './components/gui/end-game-form/end-game-form.component';
 import { GameInfoComponent } from './components/game-info/game-info.component';
 
-const config: SocketIoConfig = { url: 'ws://fourinline.herokuapp.com/', options: {'forceNew': true}};
+const config: SocketIoConfig = { url: 'wss://fourinline.herokuapp.com/', options: {'forceNew': true}};
 
 @NgModule({
   declarations: [
