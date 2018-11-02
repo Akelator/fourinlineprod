@@ -12,7 +12,7 @@ export class NewGameFormComponent {
   @Output() onNew = new EventEmitter<string>();
   @Output() onJoin = new EventEmitter<string>();
   
-  private form: FormGroup;
+  public form: FormGroup;
 
   public get game(){
     return this.form.get('game');
