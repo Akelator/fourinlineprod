@@ -17,6 +17,7 @@ import { NewGameFormComponent } from './components/gui/new-game-form/new-game-fo
 import { GameListComponent } from './components/gui/new-game-form/game-list/game-list.component';
 import { EndGameFormComponent } from './components/gui/end-game-form/end-game-form.component';
 import { GameInfoComponent } from './components/game-info/game-info.component';
+import { DeviceDetectorModule } from 'ngx-device-detector';
 
 const config: SocketIoConfig = { url: 'wss://fourinline.herokuapp.com/', options: {'forceNew': true}};
 
@@ -36,7 +37,8 @@ const config: SocketIoConfig = { url: 'wss://fourinline.herokuapp.com/', options
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
-    SocketIoModule.forRoot(config)
+    SocketIoModule.forRoot(config),
+    DeviceDetectorModule.forRoot(),
   ],
   providers: [JuegoService, AnimationsService, SocketsService],
   bootstrap: [AppComponent]

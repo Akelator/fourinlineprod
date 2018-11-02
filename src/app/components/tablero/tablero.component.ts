@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, ElementRef, Renderer2, HostListener } from '@angular/core';
+import { DeviceDetectorService } from 'ngx-device-detector';
 
 @Component({
   selector: 'tablero',
@@ -60,4 +61,33 @@ import { Component } from '@angular/core';
     }
   `]
 })
-export class TableroComponent { }
+export class TableroComponent implements OnInit {
+  public isTouchDevice: boolean = false;
+  constructor(
+    private renderer: Renderer2,
+    private element: ElementRef,
+    private deviceService: DeviceDetectorService
+  ) { }
+  ngOnInit() {
+    this.isTouchDevice = this.deviceService.isMobile() || this.deviceService.isTablet();
+    this.adjustTable();
+  }
+
+  adjustTable() {
+    //if (this.isTouchDevice) {
+      const scaleX = (window.outerWidth < 710) ? window.outerWidth / 710 : 1;
+      const scaleY = (window.outerHeight < 800) ? window.outerHeight / 800 : 1;
+      const scale = (scaleX < scaleY) ? scaleX : scaleY;
+      const anchorPoint = (scaleX < scaleY) ? 'top left' : 'top center';
+      this.renderer.setStyle(this.element.nativeElement, 'transform-origin', anchorPoint);
+      this.renderer.setStyle(this.element.nativeElement, 'transform', 'scale(' + scale + ')');
+      this.renderer.setStyle(this.element.nativeElement, 'margin', 'calc(100vh / 8) auto 0px auto');
+    //}
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event?) {
+    this.adjustTable();
+  }
+
+}
