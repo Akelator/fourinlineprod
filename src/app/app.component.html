@@ -1,6 +1,5 @@
 <ng-container *ngIf="(juego_$ | async) as j; else formconnection">
   <ng-container *ngIf="(jugador_$ | async) as jugador">
-
     <tablero *ngIf="(tablero_$ | async) as t">
       <ng-container *ngIf="(fichas_$ | async) as fichas">
         <div *ngFor="let c of t.col; let i = index;" class="row" [style.top]="(c.x - 100) + 'px'" [class.even]="i % 2 == 0 && i != 0"></div>
@@ -18,7 +17,7 @@
           <gui>
             <div class="waiting">
               <div class="grow"></div>
-                <div class="align-center">WAITING FOR AN OPONENT...</div>
+                <div class="align-center">WAITING FOR AN OPONENT</div>
               <div class="grow"></div>
             </div>
           </gui>
@@ -54,7 +53,7 @@
   </tablero>
 </ng-template>
 
-<pre style="pointer-events: none; opacity: 0.3;">
+<!-- <pre style="pointer-events: none; opacity: 0.3;">
     PLAYER:
     <span style="color:red;">{{(jugador_$ | async)?.name}}</span>
     GAME:
@@ -63,4 +62,4 @@
     <span style="color:green;">{{(jugadores_$ | async) | json}}</span>
     GAMES:
     <span style="color:magenta;">{{(juegos_$ | async) | json}}</span>
-  </pre>
+  </pre> -->

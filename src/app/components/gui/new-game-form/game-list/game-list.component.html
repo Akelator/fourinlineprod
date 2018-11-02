@@ -1,10 +1,17 @@
-<div *ngFor="let j of juegos" class="game-element">
-  <span style="color:red;">{{j.jugadores.rojo.name}}</span>
-  vs
-  <ng-container *ngIf="j.jugadores.azul else waiting">
-    <span style="color:blue;">{{j.jugadores.azul.name}}</span>
-  </ng-container>
-  <ng-template #waiting>
+<div class="game-list" [class.vertical-center]="juegos?.length < 4">
+  <div *ngFor="let j of juegos"
+       class="game-element">
+       
+    
+    
+    <ng-container *ngIf="j.jugadores.azul else waiting">
+      <div class="game-list-player game-list-red">{{j.jugadores.rojo.name | uppercase}}</div>
+      <div class="game-list-vs">VS</div>
+      <div class="game-list-player game-list-blue">{{j.jugadores.azul.name | uppercase}}</div>
+    </ng-container>
+    <ng-template #waiting>
+        <div class="game-list-player game-list-red oponent-available">{{j.jugadores.rojo.name | uppercase}}</div>
       <button (click)="join(j.id)">JOIN</button>
-  </ng-template>
+    </ng-template>
+  </div>
 </div>

@@ -2,15 +2,13 @@
   position: absolute;
   display: flex;
   flex-flow: column;
-
   align-items: center;
   width: 500px;
-  height: 240px;
+  height: 235px;
   background-color: white;
   box-shadow: 0px 0px 20px 0px #888888;
   top: 180px;
   left: 100px;
-  border: 1px solid green;
 }
 
 ::ng-deep form {
@@ -21,7 +19,6 @@
 }
 
 ::ng-deep .ganador {
-  font-size: 20px;
   text-align: center;
   padding: 20px;
 }
@@ -33,15 +30,14 @@
 ::ng-deep .options {
   display: flex;
   flex-direction: row-reverse;
-  border: 1px solid red;
+  min-height: 55px;
+  max-height: 55px;
 }
-::ng-deep .game-list-container{
-    display: flex;
-    flex-grow: 1;
-}
+
 ::ng-deep button {
   display: block;
   width: 100px;
+  max-height: 35px;
   background: #2998BC;
   color: white;
   text-align: center;
@@ -59,10 +55,22 @@
 ::ng-deep input {
   padding: 10px;
   margin: 10px;
+  border:none;
+  outline: none;
+  
 }
 ::ng-deep input[type="text"] {
     width:200px;
     margin:auto;
+    border: 1px solid #2B487A;
+}
+
+::ng-deep input[type="text"]:hover {
+  border: 1px solid #F0A322;
+}
+::ng-deep input[type="text"]:focus {
+  border: 1px solid #F0A322;
+
 }
 ::ng-deep input[type="submit"] {
   width: 100px;
@@ -86,4 +94,11 @@
     display:flex;
     flex-flow: column;
     flex-grow: 1;
+    animation: blinker 1s linear infinite;
+}
+
+@keyframes blinker {
+  50% {
+    opacity: 0;
+  }
 }

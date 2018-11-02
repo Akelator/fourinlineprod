@@ -1,8 +1,55 @@
 :host {
-    display:flex;
-    flex-grow:  1;
+  display: flex;
+  flex-grow: 1;
+  margin: 5px 5px 0px 5px;
+  overflow: hidden;
 }
 
-:host .game-element{
-    display:flex;
+:host .game-list {
+  width: 100%;
+  display: flex;
+  flex-flow: column;
+}
+:host .vertical-center{
+    justify-content: center;
+}
+
+:host button {
+  margin: 5px !important;
+}
+
+:host .game-element {
+  display: flex;
+  min-height: 45px;
+  max-height: 45px;
+  /* border:1px solid green; */
+}
+
+:host .game-list-player {
+  padding: 10px;
+  min-width: 175px;
+  margin: 5px;
+  color: white;
+}
+
+:host .game-list-red {
+  background: #F0A322;
+}
+
+:host .oponent-available {
+  flex-grow: 1;
+}
+
+:host .game-list-blue {
+  background: #2B487A;
+  text-align: right;
+}
+
+:host .game-list-vs {
+  background: #3a3a3a;
+  flex-grow: 1;
+  padding: 10px;
+  text-align: center;
+  margin: 5px;
+  color: white;
 }

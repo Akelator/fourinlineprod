@@ -18,12 +18,18 @@
     --highlight: #FFFFFF22;
   }
 
-
 ::ng-deep body{
     margin:0px;
     padding:0px;
+    font-family: 'Courier New', Courier, monospace;
 }
+::ng-deep input{
+    font-family: 'Courier New', Courier, monospace;
 
+}
+::ng-deep button{
+    font-family: 'Courier New', Courier, monospace;
+}
 :host {
     display: flex;
     width: 100vw;
