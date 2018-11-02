@@ -52,12 +52,10 @@ io.on('connection', function (socket) {
   });
 
   socket.on('mover-ficha', function (data) {
-    console.log("MOVER FICHA")
     let listenerId = (data.juego.turno === 'rojo') ? data.juego.jugadores.azul.id : data.juego.jugadores.rojo.id;
     io.sockets.connected[listenerId].emit('mover-ficha', data);
   });
   socket.on('tirar-ficha', function (data) {
-    console.log("TIRAR FICHA")
     let listenerId = (data.juego.turno === 'rojo') ? data.juego.jugadores.azul.id : data.juego.jugadores.rojo.id;
     io.sockets.connected[listenerId].emit('tirar-ficha', data);
   });
