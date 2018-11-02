@@ -1,4 +1,4 @@
-import { Component, OnInit, ElementRef, Renderer2, HostListener } from '@angular/core';
+import { Component, OnInit, ElementRef, Renderer2, HostListener, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { DeviceDetectorService } from 'ngx-device-detector';
 
 @Component({
@@ -64,6 +64,7 @@ import { DeviceDetectorService } from 'ngx-device-detector';
 export class TableroComponent implements OnInit {
   public isTouchDevice: boolean = false;
   constructor(
+    private changes: ChangeDetectorRef,
     private renderer: Renderer2,
     private element: ElementRef,
     private deviceService: DeviceDetectorService
@@ -71,10 +72,10 @@ export class TableroComponent implements OnInit {
   ngOnInit() {
     this.isTouchDevice = this.deviceService.isMobile() || this.deviceService.isTablet();
     this.adjustTable();
+    this.changes.detectChanges();
   }
 
   adjustTable() {
-    //if (this.isTouchDevice) {
       const scaleX = (window.outerWidth < 710) ? window.outerWidth / 710 : 1;
       const scaleY = (window.outerHeight < 800) ? window.outerHeight / 800 : 1;
       const scale = (scaleX < scaleY) ? scaleX : scaleY;
@@ -82,7 +83,6 @@ export class TableroComponent implements OnInit {
       this.renderer.setStyle(this.element.nativeElement, 'transform-origin', anchorPoint);
       this.renderer.setStyle(this.element.nativeElement, 'transform', 'scale(' + scale + ')');
       this.renderer.setStyle(this.element.nativeElement, 'margin', 'calc(100vh / 8) auto 0px auto');
-    //}
   }
 
   @HostListener('window:resize', ['$event'])
