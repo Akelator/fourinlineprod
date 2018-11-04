@@ -9,7 +9,8 @@
           <div *ngFor="let c of t.col; let i = index;" class="col" [ngClass]="j.turno" [style.left]="c.x + 'px'"
             [class.highlight]="j.jugadores.azul && i === j.sCol && !j.fin && j.jugadores[j.turno].id == jugador.id"
             (mouseenter)="j.jugadores.azul && !j.fin && j.jugadores[j.turno].id == jugador.id && ws.moverFicha(j, t, fichas, i)"
-            (drag)="j.jugadores.azul && !j.fin && j.jugadores[j.turno].id == jugador.id && ws.moverFichaTouch(j, t, fichas, i)"
+            draggable="true"
+            (dragstart)="j.jugadores.azul && !j.fin && j.jugadores[j.turno].id == jugador.id && ws.moverFichaTouch($event, j, t, fichas, i)"
             (click)="j.jugadores.azul && !j.fin && j.jugadores[j.turno].id == jugador.id && ws.tirarFicha(j, t, fichas, i)"></div>
           <ng-container *ngIf="j.jugadores.azul else waiting">
             <game-info [game]="j" [player]="jugador"></game-info>
