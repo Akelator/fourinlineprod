@@ -17,6 +17,7 @@ export class AppComponent {
   juego_$: Observable<Juego>
   tablero_$: Observable<Tablero>;
   fichas_$: Observable<Fichas>;
+  mierda_$: Observable<boolean>;
   
 
   constructor(
@@ -29,6 +30,7 @@ export class AppComponent {
     this.juego_$ = this.juego.juego_$;
     this.tablero_$ = this.juego.tablero_$;
     this.fichas_$ = this.juego.fichas_$;
+    this.mierda_$ = this.juego.mierda_$;
   }
   
   restart() {

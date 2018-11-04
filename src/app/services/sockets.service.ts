@@ -65,8 +65,23 @@ export class SocketsService implements OnDestroy {
   joinGame(id){
     this.socket.emit('join-game', {gameId: id, playerId: this.player.id});
   }
-  
+  moverFichaTouch(j, t, fichas, i){
+    console.log("TOUCCH");
+    this.juego.notify();
+    if (!this.juego.tirando){
+      this.juego.moverFicha(j, t, fichas, i);
+      let data = {
+        juego: j,
+        tablero: t,
+        fichas: fichas,
+        i: i
+      }
+      this.socket.emit('mover-ficha', data);
+    }
+  }
   moverFicha(j, t, fichas, i){
+    console.log("mover ficha");
+    this.juego.notify();
     if (!this.juego.tirando){
       this.juego.moverFicha(j, t, fichas, i);
       let data = {

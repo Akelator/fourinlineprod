@@ -3,11 +3,13 @@
   <ng-container *ngIf="(juego_$ | async) as j; else formconnection">
     <ng-container *ngIf="(jugador_$ | async) as jugador">
       <tablero *ngIf="(tablero_$ | async) as t" [class.touch-table]="isTouchDevice">
+        
         <ng-container *ngIf="(fichas_$ | async) as fichas">
           <div *ngFor="let c of t.col; let i = index;" class="row" [style.top]="(c.x - 100) + 'px'" [class.even]="i % 2 == 0 && i != 0"></div>
           <div *ngFor="let c of t.col; let i = index;" class="col" [ngClass]="j.turno" [style.left]="c.x + 'px'"
             [class.highlight]="j.jugadores.azul && i === j.sCol && !j.fin && j.jugadores[j.turno].id == jugador.id"
             (mouseenter)="j.jugadores.azul && !j.fin && j.jugadores[j.turno].id == jugador.id && ws.moverFicha(j, t, fichas, i)"
+            (drag)="j.jugadores.azul && !j.fin && j.jugadores[j.turno].id == jugador.id && ws.moverFichaTouch(j, t, fichas, i)"
             (click)="j.jugadores.azul && !j.fin && j.jugadores[j.turno].id == jugador.id && ws.tirarFicha(j, t, fichas, i)"></div>
           <ng-container *ngIf="j.jugadores.azul else waiting">
             <game-info [game]="j" [player]="jugador"></game-info>
@@ -31,6 +33,7 @@
             <end-game-form [game]="j" (onRestart)="restart()"></end-game-form>
           </gui>
         </ng-container>
+        <div *ngIf="mierda_$ | async">MOVIO</div>
       </tablero>
     </ng-container>
   </ng-container>
