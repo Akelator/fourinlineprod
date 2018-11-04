@@ -1,6 +1,5 @@
-import { Component, OnInit, ElementRef, Renderer2, HostListener, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ElementRef, Renderer2, HostListener, ChangeDetectorRef } from '@angular/core';
 import { DeviceDetectorService } from 'ngx-device-detector';
-
 @Component({
   selector: 'tablero',
   template: `
@@ -89,5 +88,4 @@ export class TableroComponent implements OnInit {
   onResize(event?) {
     this.adjustTable();
   }
-
 }

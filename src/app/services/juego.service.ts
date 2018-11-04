@@ -21,8 +21,6 @@ export class JuegoService {
   tablero_$ = this._tablero.asObservable();
   private _fichas = new BehaviorSubject<Fichas>(new Fichas());
   fichas_$ = this._fichas.asObservable();
-  private _mierda = new BehaviorSubject<boolean>(false);
-  mierda_$ = this._mierda.asObservable();
 
 
   private jugadores = this._jugadores.value;
@@ -31,18 +29,12 @@ export class JuegoService {
   private juego = this._juego.value;
   private tablero = this._tablero.value;
   private fichas = this._fichas.value;
-  private mierda = this._mierda.value;
 
   constructor(
     private anim: AnimationsService,
   ) {
     this.iniciarTablero(this.tablero);
     //this.startGame();
-  }
-
-  public notify(){
-    this.mierda = true;
-    this._mierda.next(this.mierda);
   }
 
   public actualizarJugadores(jugadores){

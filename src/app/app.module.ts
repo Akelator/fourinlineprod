@@ -19,6 +19,16 @@ import { EndGameFormComponent } from './components/gui/end-game-form/end-game-fo
 import { GameInfoComponent } from './components/game-info/game-info.component';
 import { DeviceDetectorModule } from 'ngx-device-detector';
 
+// import * as Hammer from 'hammerjs';
+// import { HammerGestureConfig, HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
+import { HammertimeDirective } from './directives/hammertime.directive';
+
+// export class MyHammerConfig extends HammerGestureConfig {
+//   overrides = <any>{
+//     'swipe': { direction: Hammer.DIRECTION_ALL }
+//   }
+// }
+
 const config: SocketIoConfig = { url: 'wss://fourinline.herokuapp.com/', options: {'forceNew': true}};
 
 @NgModule({
@@ -32,6 +42,7 @@ const config: SocketIoConfig = { url: 'wss://fourinline.herokuapp.com/', options
     GameListComponent,
     EndGameFormComponent,
     GameInfoComponent,
+    HammertimeDirective,
   ],
   imports: [
     BrowserModule,
@@ -40,7 +51,15 @@ const config: SocketIoConfig = { url: 'wss://fourinline.herokuapp.com/', options
     SocketIoModule.forRoot(config),
     DeviceDetectorModule.forRoot(),
   ],
-  providers: [JuegoService, AnimationsService, SocketsService],
+  providers: [
+    JuegoService, 
+    AnimationsService, 
+    SocketsService,
+    // {
+    //   provide: HAMMER_GESTURE_CONFIG,
+    //   useClass: MyHammerConfig,
+    // }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

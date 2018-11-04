@@ -65,11 +65,8 @@ export class SocketsService implements OnDestroy {
   joinGame(id){
     this.socket.emit('join-game', {gameId: id, playerId: this.player.id});
   }
-  moverFichaTouch(event, j, t, fichas, i){
-    
-    console.log("TOUCCH");
-    console.log(event);
-    this.juego.notify();
+
+  moverFicha(j, t, fichas, i){
     if (!this.juego.tirando){
       this.juego.moverFicha(j, t, fichas, i);
       let data = {
@@ -80,20 +77,6 @@ export class SocketsService implements OnDestroy {
       }
       this.socket.emit('mover-ficha', data);
     }
-    event.preventDefault();
-  }
-  moverFicha(j, t, fichas, i){
-    // this.juego.notify();
-    // if (!this.juego.tirando){
-    //   this.juego.moverFicha(j, t, fichas, i);
-    //   let data = {
-    //     juego: j,
-    //     tablero: t,
-    //     fichas: fichas,
-    //     i: i
-    //   }
-    //   this.socket.emit('mover-ficha', data);
-    // }
   }
 
   tirarFicha(j, t, fichas, i){
