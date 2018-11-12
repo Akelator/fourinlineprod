@@ -26,14 +26,12 @@ import { Component } from '@angular/core';
       border-radius: 30px;
     }
     
-    ::ng-deep .rojo div {
-      background: rgb(255, 80, 50);
-      background: #F0A322;
+    ::ng-deep .rojo .ficha {
+      background: var(--red);
     }
     
-    ::ng-deep .azul div {
-      background: rgb(50, 80, 255);
-      background: #1b709f;
+    ::ng-deep .azul .ficha {
+      background: var(--blue);
     }
   `]
 })

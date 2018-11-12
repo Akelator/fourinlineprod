@@ -1,5 +1,5 @@
 :host {
-  color: white;
+  color: var(--white);
   line-height: 42px;
   font-size: 24px;
   position: absolute;
@@ -10,42 +10,43 @@
   top: 620px;
 }
 
-:host .player-box {
+:host .player-box-red {
   width: 310px;
   padding: 2px;
-  border: 2px solid white;
+  border: 2px solid var(--red);
 }
 
-:host .highlight-red {
-  border: 2px solid #F0A322;
+:host .player-box-blue {
+  width: 310px;
+  padding: 2px;
+  border: 2px solid var(--blue);
 }
 
-:host .highlight-blue {
-  border: 2px solid #2B487A;
+:host .highlight {
+  border: 2px solid var(--white);
 }
 
 :host .red-player {
-  background: #F0A322;
+  background: var(--red);
   padding-left: 10px;
 }
 
 :host .blue-player {
-  background: #2B487A;
+  background: var(--blue);
   text-align: right;
   padding-right: 10px
 }
 
 :host .box-vs {
-  background: white;
   width: 89px;
   margin: 0px 10px 0px 10px;
   text-align: center;
   padding: 2px;
-  border: 2px solid white;
+  border: 2px solid var(--white);
 }
 
 :host .player-vs {
-  background: #A0A0A0
+  background: var(--grey);
 }
 
 :host .blink {

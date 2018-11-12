@@ -1,21 +1,13 @@
 :host {
-  --content-dark-blue: #2B487A;
-  --content-medium-blue: #1b709f;
-  --content-light-blue: #859DBD;
-  --focus-yellow: #F0A322;
-  --attention-orange: #F16722;
-  --warning-red: #F20012;
-  --confirm-blue: #2998BC;
+  --red: rgb(255, 80, 50);
+  --blue: rgb(50, 80, 255);
   --white: #FFFFFF;
-  --action-grey: #3a3a3a;
-  --supportive-grey: #A0A0A0;
-  --supportive-light-grey: #C0C0C0;
-  --supportive-blue: #A6CAE1;
-  --supportive-light-blue: #DFEAED;
-  --supportive-beige: #E2DFCC;
-  --marketing-green: #7FC13D;
-  --none: #00000000;
-  --highlight: #FFFFFF22;
+  --grey: #555555;
+  --button: #7FC13D;
+  --buttonhover: #8FD14D;
+  --inputborder: #333333;
+  --inputfocus: #7FC13D;
+  --background: #333333;
 }
 
 ::ng-deep body {
@@ -38,7 +30,7 @@
   display: flex;
   width: 100vw;
   height: 100vh;
-  background: white;
+  background: var(--background);
 }
 
 :host pre {
@@ -49,5 +41,5 @@
   display: flex;
   width: 100%;
   height: 100vh;
-  position:relative;
+  position: relative;
 }

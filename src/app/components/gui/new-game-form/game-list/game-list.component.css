@@ -29,11 +29,13 @@
   padding: 10px;
   min-width: 175px;
   margin: 5px;
-  color: white;
+  color: var(--white);
 }
-
+:host .game-list-grey {
+  background: var(--grey);
+}
 :host .game-list-red {
-  background: #F0A322;
+  background: var(--red);
 }
 
 :host .oponent-available {
@@ -41,15 +43,15 @@
 }
 
 :host .game-list-blue {
-  background: #2B487A;
+  background: var(--blue);
   text-align: right;
 }
 
 :host .game-list-vs {
-  background: #A0A0A0;
+  background: var(--grey);
   flex-grow: 1;
   padding: 10px;
   text-align: center;
   margin: 5px;
-  color: white;
+  color: var(--white);
 }

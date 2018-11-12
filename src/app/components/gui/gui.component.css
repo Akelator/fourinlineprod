@@ -5,7 +5,7 @@
   align-items: center;
   width: 500px;
   height: 235px;
-  background-color: white;
+  background-color: var(--white);
   box-shadow: 0px 0px 20px 0px #888888;
   top: 180px;
   left: 100px;
@@ -38,8 +38,8 @@
   display: block;
   width: 100px;
   max-height: 35px;
-  background: #2998BC;
-  color: white;
+  background: var(--button);
+  color: var(--white);
   text-align: center;
   padding: 10px;
   margin: 10px;
@@ -48,7 +48,7 @@
 }
 
 ::ng-deep button:hover {
-  background: #32a1cf;
+  background: var(--buttonhover);
   cursor: pointer;
 }
 
@@ -62,14 +62,14 @@
 ::ng-deep input[type="text"] {
     width:200px;
     margin:auto;
-    border: 1px solid #2B487A;
+    border: 1px solid var(--inputborder);
 }
 
 ::ng-deep input[type="text"]:hover {
-  border: 1px solid #F0A322;
+  border: 1px solid var(--inputfocus);
 }
 ::ng-deep input[type="text"]:focus {
-  border: 1px solid #F0A322;
+  border: 1px solid var(--inputfocus);
 
 }
 ::ng-deep input[type="submit"] {
@@ -77,12 +77,12 @@
   cursor: pointer;
   border: none;
   outline: none;
-  background: #2998BC;
-  color: white;
+  background: var(--button);
+  color: var(--white);
 }
 
 ::ng-deep input[type="submit"]:hover {
-  background: #32a1cf;
+  background: var(--buttonhover);
 }
 
 ::ng-deep .align-center {

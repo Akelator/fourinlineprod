@@ -11,7 +11,9 @@
             (mouseenter)="!isTouchDevice && j.jugadores.azul && !j.fin && j.jugadores[j.turno].id == jugador.id && ws.moverFicha(j, t, fichas, i)"  
             (click)="!isTouchDevice && j.jugadores.azul && !j.fin && j.jugadores[j.turno].id == jugador.id && ws.tirarFicha(j, t, fichas, i)"
             (simpleTap)="j.jugadores.azul && !j.fin && j.jugadores[j.turno].id == jugador.id && ws.moverFicha(j, t, fichas, i)"
-            (doubleTap)="j.jugadores.azul && !j.fin && j.jugadores[j.turno].id == jugador.id && ws.tirarFicha(j, t, fichas, i)"></div>
+            (doubleTap)="j.jugadores.azul && !j.fin && j.jugadores[j.turno].id == jugador.id && ws.tirarFicha(j, t, fichas, i)">
+            <div class="inner-col"></div>
+          </div>
           <ng-container *ngIf="j.jugadores.azul else waiting">
             <game-info [game]="j" [player]="jugador"></game-info>
             <ficha *ngFor="let f of fichas.rojo" [ngClass]="f.color" [style.left]="f.pos.x + 'px'" [style.top]="f.pos.y + 'px'"

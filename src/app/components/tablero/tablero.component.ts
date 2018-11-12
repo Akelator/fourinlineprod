@@ -12,9 +12,9 @@ import { DeviceDetectorService } from 'ngx-device-detector';
       display: block;
       width: 710px;
       height: 600px;
-      background: white;
+      background: var(--white);
       margin: auto auto auto auto;
-      border-top:1px solid #3a3a3a;
+      border-top:1px solid var(--grey);
     }
     
     :host .tablero {
@@ -28,10 +28,11 @@ import { DeviceDetectorService } from 'ngx-device-detector';
     ::ng-deep .col {
       display: block;
       position: absolute;
-      padding: 5px;
-      margin:-5px 0px 0px -5px;
+      margin:-110px 0px 0px 0px;
+      padding-top:110px;
       width: 100px;
       height: 600px;
+      cursor: pointer;
     }
 
     ::ng-deep .row {
@@ -41,22 +42,22 @@ import { DeviceDetectorService } from 'ngx-device-detector';
       margin:0px 0px 0px -5px;
       width: 699px;
       height: 90px;
-      
-    }
-    ::ng-deep .even {
-      background:#DFEAED;
-    }
-    ::ng-deep .col:hover{
-      // background: #DFEAED;
-      cursor: pointer;
-    }
-  
-    ::ng-deep .col.rojo.highlight{
-      border-top: 4px solid #F0A322;
     }
 
-    ::ng-deep .col.azul.highlight{
-      border-top: 4px solid #1b709f;
+    ::ng-deep .inner-col {
+      margin:0px 0px 0px 0px;
+      width: 100px;
+      height: 600px;
+    }
+
+    ::ng-deep .col.rojo.highlight .inner-col{
+      margin-top: -4px;
+      border-top: 4px solid var(--red);
+    }
+
+    ::ng-deep .col.azul.highlight .inner-col{
+      margin-top: -4px;
+      border-top: 4px solid var(--blue);
     }
   `]
 })
