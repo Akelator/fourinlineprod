@@ -10,7 +10,7 @@ import { DeviceDetectorService } from 'ngx-device-detector';
   styles: [`
     :host {
       display: block;
-      width: 710px;
+      width: 700px;
       height: 600px;
       background: var(--white);
       margin: auto auto auto auto;
@@ -22,7 +22,7 @@ import { DeviceDetectorService } from 'ngx-device-detector';
       position: relative;
       width: 700px;
       height: 600px;
-      margin: 0px 5px 0px 5px;
+      margin: 0px 0px 0px 0px;
     }
 
     ::ng-deep .col {
