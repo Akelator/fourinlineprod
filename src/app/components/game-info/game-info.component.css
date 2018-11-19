@@ -49,11 +49,11 @@
 }
 
 :host .blink {
-  animation: blinker2 0.4s linear infinite;
+  animation: blinker 0.4s linear infinite;
   -webkit-animation: blinker 0.4s linear infinite;
 }
 
-@keyframes blinker2 {
+@keyframes blinker {
   50% {
     border: 2px solid #FFFFFF00;
   }
