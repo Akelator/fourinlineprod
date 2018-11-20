@@ -1,17 +1,15 @@
-<form [formGroup]="form"
-      (submit)="join()">
-
+<form [formGroup]="form" (submit)="join()">
   <div class="grow"></div>
-  <input type="text"
-         placeholder="YOUR NAME"
-         [class.invalid]="username.touched && !username.valid"
-         formControlName="username"
-         maxlength="12">
-
+  <ng-container *ngIf="(fbUser_$ | async) as fbUser; else noFB">
+    <input [readonly]="true" type="text" placeholder="YOUR NAME" [class.invalid]="username.touched && !username.valid" formControlName="username"
+      maxlength="22">
+  </ng-container>
+  <ng-template #noFB>
+    <input type="text" placeholder="YOUR NAME" [class.invalid]="username.touched && !username.valid" formControlName="username"
+      maxlength="24">
+  </ng-template>
   <div class="grow"></div>
   <div class="options">
-    <input type="submit"
-           [disabled]="!form.valid"
-           value="JOIN">
+    <input type="submit" [disabled]="!form.valid" value="JOIN">
   </div>
 </form>

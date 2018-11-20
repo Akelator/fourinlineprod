@@ -22,6 +22,8 @@ import { DeviceDetectorModule } from 'ngx-device-detector';
 // import * as Hammer from 'hammerjs';
 // import { HammerGestureConfig, HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
 import { HammertimeDirective } from './directives/hammertime.directive';
+import { FacebookService } from './services/facebook.service';
+import { HttpClientModule } from '@angular/common/http';
 
 // export class MyHammerConfig extends HammerGestureConfig {
 //   overrides = <any>{
@@ -47,6 +49,7 @@ const config: SocketIoConfig = { url: 'wss://fourinline.herokuapp.com/', options
   imports: [
     BrowserModule,
     FormsModule,
+    HttpClientModule,
     ReactiveFormsModule,
     SocketIoModule.forRoot(config),
     DeviceDetectorModule.forRoot(),
@@ -59,6 +62,7 @@ const config: SocketIoConfig = { url: 'wss://fourinline.herokuapp.com/', options
     //   provide: HAMMER_GESTURE_CONFIG,
     //   useClass: MyHammerConfig,
     // }
+    FacebookService,
   ],
   bootstrap: [AppComponent]
 })
