@@ -1,4 +1,7 @@
 
+<div style="position:fixed; color:white;">
+  {{(fbUser_$ | async) | json}}
+</div>
 <div class="main-content">
   <ng-container *ngIf="(juego_$ | async) as j; else formconnection">
     <ng-container *ngIf="(jugador_$ | async) as jugador">
@@ -40,14 +43,14 @@
       </tablero>
     </ng-container>
   </ng-container>
-
+  
   <ng-template #formconnection>
     <tablero *ngIf="(tablero_$ | async) as t" [class.touch-table]="isTouchDevice">
       <div *ngFor="let c of t.col; let i = index;" class="row" [style.top]="(c.x - 100) + 'px'" [class.even]="i % 2 == 0 && i != 0"></div>
       <div *ngFor="let c of t.col; let i = index;" class="col" [style.left]="c.x + 'px'"></div>
       <ng-container *ngIf="!(jugador_$ | async); else newgame">
-        <gui>
-          <new-user-form (onJoin)="newUser($event)"></new-user-form>
+        <gui *ngIf="fbUser_$ | async">
+          <new-user-form [fbUser_$]="fbUser_$" (onJoin)="newUser($event)"></new-user-form>
         </gui>
       </ng-container>
       <ng-template #newgame>

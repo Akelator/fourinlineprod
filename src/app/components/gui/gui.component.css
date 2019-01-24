@@ -16,6 +16,7 @@
   height: 100%;
   display: flex;
   flex-flow: column;
+  align-items: center;
 }
 
 ::ng-deep .ganador {
@@ -74,7 +75,7 @@
 }
 ::ng-deep input[type="submit"] {
   width: 100px;
-  cursor: pointer;
+  
   border: none;
   outline: none;
   background: var(--button);
@@ -83,8 +84,11 @@
 
 ::ng-deep input[type="submit"]:hover {
   background: var(--buttonhover);
+  cursor: pointer;
 }
-
+::ng-deep input[type="submit"]:disabled{
+  background: grey;
+}
 ::ng-deep .align-center {
     width:100%;
     text-align: center;
