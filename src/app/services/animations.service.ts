@@ -3,6 +3,7 @@ import { Ficha, Pos } from '../models/ficha';
 import { Columna, Casilla } from '../models/tablero';
 import { Observable } from 'rxjs';
 
+
 @Injectable()
 export class AnimationsService {
 
