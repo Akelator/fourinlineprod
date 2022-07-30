@@ -1,17 +1,15 @@
 <form [formGroup]="form"
       (submit)="join()">
-
-  <div class="grow"></div>
   <input type="text"
          placeholder="YOUR NAME"
-         [class.invalid]="username.touched && !username.valid"
+         [class.invalid]="(username && username.value?.length && username.touched && !username.valid) || unavailableName"
          formControlName="username"
-         maxlength="12">
-
-  <div class="grow"></div>
+         minlength="3"
+         maxlength="12"
+         autofocus="true" />
   <div class="options">
     <input type="submit"
            [disabled]="!form.valid"
-           value="JOIN">
+           value="JOIN LOBBY" />
   </div>
 </form>

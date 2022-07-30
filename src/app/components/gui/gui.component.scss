@@ -1,0 +1,108 @@
+:host {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  top: 0px;
+  left: 0px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.244);
+  transition: var(--chat-animation);
+}
+:host ::ng-deep {
+  * {
+    box-sizing: border-box;
+  }
+  form {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-flow: column;
+  }
+
+  .final-msg {
+    height: 39px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .options {
+    display: flex;
+    flex-direction: row-reverse;
+    margin-top: 10px;
+  }
+
+  button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 39px;
+    background: var(--button);
+    color: var(--white);
+    text-align: center;
+    border: none;
+    outline: none;
+    padding: 10px 30px;
+    transition: 200ms;
+  }
+
+  button:hover {
+    background: var(--buttonhover);
+    cursor: pointer;
+  }
+
+  input {
+    padding: 10px;
+    border: none;
+    outline: none;
+    transition: 200ms;
+  }
+  input[type="text"] {
+    width: 200px;
+    margin: auto;
+    border: 2px solid var(--inputborder);
+    &.invalid {
+      border: 2px solid var(--invalid);
+    }
+  }
+
+  input[type="text"]:hover {
+    border: 2px solid var(--inputfocus);
+  }
+  input[type="text"]:focus {
+    border: 2px solid var(--inputfocus);
+  }
+  input[type="submit"] {
+    width: 100%;
+    border: none;
+    outline: none;
+    background: var(--button);
+    color: var(--white);
+    &:disabled {
+      background: var(--disabled);
+    }
+    &:not(:disabled):hover {
+      background: var(--buttonhover);
+      cursor: pointer;
+    }
+  }
+
+  .no-games {
+    width: 100%;
+    height: 39px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+.gui-content {
+  z-index: 1;
+  max-width: 100vw;
+  padding: 24px;
+  background-color: white;
+  border-radius: 5px;
+  box-shadow: var(--shadow);
+}

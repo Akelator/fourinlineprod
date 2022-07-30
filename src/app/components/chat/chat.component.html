@@ -1,0 +1,28 @@
+<div class="chat-header">
+  <div class="chat-title">{{ chatTitle }}</div>
+  <div class="close-btn"
+       (click)="onClose()"></div>
+</div>
+<div class="chat-conversation">
+  <div class="chat-content">
+    <div>
+      <ng-container *ngFor="let chatMsg of chatList">
+        <div class="chat-msg"
+             [class.owner]="chatMsg.owner"
+             [class.rojo]="playerColor == 'rojo'"
+             [class.azul]="playerColor == 'azul'">
+          {{chatMsg.msg}}
+        </div>
+      </ng-container>
+    </div>
+  </div>
+</div>
+<div class="chat-footer">
+  <input type="text"
+         [(ngModel)]="currentMsg"
+         (keydown.enter)="sendMsg()">
+  <button (click)="sendMsg()"
+          [disabled]="!currentMsg || !currentMsg.length">
+    <div></div>
+  </button>
+</div>

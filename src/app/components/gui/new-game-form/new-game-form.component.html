@@ -1,23 +1,19 @@
 <form [formGroup]="form">
-
-  <ng-container *ngIf="juegos?.length > 0 else nogames">
+  <ng-container *ngIf="juegos && juegos.length > 0; else nogames">
     <game-list [juegos]="juegos"
-               (onJoin)="joinGame($event)">
-    </game-list>
+               (onJoin)="joinGame($event)"> </game-list>
   </ng-container>
   <ng-template #nogames>
-    <div class="grow"></div>
-    <div class="align-center">NO GAMES AVAILABLE</div>
-    <div class="grow"></div>
+    <div class="no-games">NO GAMES AVAILABLE</div>
   </ng-template>
-  <ng-container *ngIf="juegos?.length < 5 else margin">
+  <ng-container *ngIf="juegos && juegos.length < 5; else margin">
     <div class="options">
       <input type="submit"
-             value="NEW GAME"
-             (click)="newGame()">
+             value="CREATE NEW GAME"
+             (click)="newGame()" />
     </div>
   </ng-container>
   <ng-template #margin>
-    <div style="min-height:5px;"></div>
+    <div style="min-height: 5px"></div>
   </ng-template>
 </form>

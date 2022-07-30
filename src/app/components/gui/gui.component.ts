@@ -1,15 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'gui',
   templateUrl: './gui.component.html',
-  styleUrls: ['./gui.component.css']
+  styleUrls: ['./gui.component.scss'],
 })
-export class GuiComponent implements OnInit {
-
-  constructor() { }
-
-  ngOnInit() {
-  }
-
-}
+export class GuiComponent {}

@@ -1,34 +1,25 @@
 :host {
   display: flex;
   flex-grow: 1;
-  margin: 5px 5px 0px 5px;
   overflow: hidden;
 }
 
 :host .game-list {
   width: 100%;
-  display: flex;
-  flex-flow: column;
-}
-:host .vertical-center{
-    justify-content: center;
+  max-height: calc(100vh - 300px);
+  overflow: auto;
 }
 
-:host button {
-  margin: 5px !important;
-}
-
-:host .game-element {
+.game-element {
   display: flex;
-  min-height: 45px;
-  max-height: 45px;
-  /* border:1px solid green; */
+  &:not(:first-child) {
+    margin-top: 5px;
+  }
 }
 
 :host .game-list-player {
   padding: 10px;
   min-width: 175px;
-  margin: 5px;
   color: var(--white);
 }
 :host .game-list-grey {
@@ -38,20 +29,30 @@
   background: var(--red);
 }
 
-:host .oponent-available {
-  flex-grow: 1;
-}
-
 :host .game-list-blue {
   background: var(--blue);
   text-align: right;
 }
-
+:host .game-list-green {
+  background: var(--cyan);
+  text-align: right;
+  animation: joinblinker 0.5s ease-in-out infinite;
+  transform: 200ms;
+  &:hover {
+    background: var(--cyanhover);
+    cursor: pointer;
+  }
+}
 :host .game-list-vs {
   background: var(--grey);
   flex-grow: 1;
   padding: 10px;
   text-align: center;
-  margin: 5px;
   color: var(--white);
+}
+
+@keyframes joinblinker {
+  50% {
+    background: var(--cyanhover);
+  }
 }

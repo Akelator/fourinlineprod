@@ -1,0 +1,12 @@
+.waiting {
+  display: flex;
+  animation: blinker 1s linear infinite;
+  height: 39px;
+  align-items: center;
+  justify-content: center;
+}
+@keyframes blinker {
+  50% {
+    opacity: 0.2;
+  }
+}

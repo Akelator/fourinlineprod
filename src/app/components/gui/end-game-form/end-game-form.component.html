@@ -1,6 +1,14 @@
-<div class="grow"></div>
-<div class="ganador">{{game.ganador.name | uppercase}} WINS</div>
-<div class="grow"></div>
+<ng-container *ngIf="!isTie; else tie">
+  <div class="final-msg">{{ msg }}</div>
+</ng-container>
+<ng-template #tie>
+  <div class="final-msg">IS A TIE</div>
+</ng-template>
 <div class="options">
-  <button (click)="restart()">RESTART</button>
+  <ng-container *ngIf="winner; else restartgame">
+    <div class="waiting">WAITING FOR YOUR OPPONENT</div>
+  </ng-container>
+  <ng-template #restartgame>
+    <button (click)="restart()">RESTART GAME</button>
+  </ng-template>
 </div>

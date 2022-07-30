@@ -1,0 +1,57 @@
+:host {
+  display: block;
+  width: calc(var(--cell) * 7);
+  height: calc(var(--cell) * 8);
+  margin: auto auto auto auto;
+  display: flex;
+  align-items: flex-end;
+  padding: calc(var(--cell) * 0.24);
+}
+
+.tablero {
+  display: block;
+  position: relative;
+  width: calc(var(--cell) * 7);
+  height: calc(var(--cell) * 7);
+  margin: 0px;
+}
+:host ::ng-deep {
+  .col {
+    display: block;
+    position: absolute;
+    margin: calc((var(--cell) + (var(--cell) / 10)) * -1) 0px 0px 0px;
+    padding-top: calc(var(--cell) + (var(--cell) / 10));
+    width: var(--cell);
+    height: calc(var(--cell) * 6);
+    cursor: pointer;
+  }
+
+  .row {
+    display: block;
+    position: absolute;
+    box-sizing: border-box;
+    width: calc(var(--cell) * 7);
+    height: var(--cell);
+    &:not(:first-child) {
+      border: 1px solid var(--lines);
+      background: var(--white);
+    }
+  }
+
+  .inner-col {
+    margin: 0px 0px 0px 0px;
+    width: var(--cell);
+    height: calc(var(--cell) * 6);
+    box-sizing: border-box;
+    border: 1px solid var(--lines);
+    transition: 200ms;
+  }
+
+  .col.rojo.highlight .inner-col {
+    background-color: var(--red-trans);
+  }
+
+  .col.azul.highlight .inner-col {
+    background-color: var(--blue-trans);
+  }
+}

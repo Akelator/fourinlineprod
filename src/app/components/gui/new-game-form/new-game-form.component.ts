@@ -1,35 +1,34 @@
-import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Juego } from 'src/app/models/juego';
 
 @Component({
   selector: 'new-game-form',
   templateUrl: './new-game-form.component.html',
-  styleUrls: ['./new-game-form.component.css']
+  styleUrls: ['./new-game-form.component.scss'],
 })
 export class NewGameFormComponent {
-
-  @Input() juegos;
-  @Output() onNew = new EventEmitter<string>();
+  @Input() juegos: Juego[] | null = [];
+  @Output() onNew = new EventEmitter<string | null>();
   @Output() onJoin = new EventEmitter<string>();
-  
-  public form: FormGroup;
 
-  public get game(){
+  form: FormGroup;
+
+  constructor(private fb: FormBuilder) {
+    this.form = this.fb.group({
+      game: [null, Validators.required],
+    });
+  }
+
+  get game() {
     return this.form.get('game');
   }
 
-  constructor(private fb: FormBuilder,){
-    this.form = this.fb.group({
-      game: [null, Validators.required],
-    })
+  newGame(): void {
+    this.onNew.emit(null);
   }
 
-  newGame(){
-    this.onNew.emit(null);
-  } 
-
-  joinGame(id){
+  joinGame(id: string): void {
     this.onJoin.emit(id);
   }
-
 }

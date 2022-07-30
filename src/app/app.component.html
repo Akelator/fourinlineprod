@@ -1,73 +1,111 @@
-
-<div class="main-content">
-  <ng-container *ngIf="(juego_$ | async) as j; else formconnection">
-    <ng-container *ngIf="(jugador_$ | async) as jugador">
-      <tablero *ngIf="(tablero_$ | async) as t" [class.touch-table]="isTouchDevice">
-        
-        <ng-container *ngIf="(fichas_$ | async) as fichas">
-          <div *ngFor="let c of t.col; let i = index;" class="row" [style.top]="(c.x - 100) + 'px'" [class.even]="i % 2 == 0 && i != 0"></div>
-          <div hammertime *ngFor="let c of t.col; let i = index;" class="col" [ngClass]="j.turno" [style.left]="c.x + 'px'"
-            [class.highlight]="j.jugadores.azul && i === j.sCol && !j.fin && j.jugadores[j.turno].id == jugador.id"
-            (mouseenter)="!isTouchDevice && j.jugadores.azul && !j.fin && j.jugadores[j.turno].id == jugador.id && ws.moverFicha(j, t, fichas, i)"  
-            (click)="!isTouchDevice && j.jugadores.azul && !j.fin && j.jugadores[j.turno].id == jugador.id && ws.tirarFicha(j, t, fichas, i)"
-            (simpleTap)="j.jugadores.azul && !j.fin && j.jugadores[j.turno].id == jugador.id && ws.moverFicha(j, t, fichas, i)"
-            (doubleTap)="j.jugadores.azul && !j.fin && j.jugadores[j.turno].id == jugador.id && ws.tirarFicha(j, t, fichas, i)">
+<div class="main-content"
+     [style]="cellSize"
+     [class.chat-opened]="displayChat">
+  <ng-container *ngIf="juego as j; else formconnection">
+    <ng-container *ngIf="jugador_$ | async as jugador">
+      <tablero *ngIf="tablero_$ | async as t"
+               [class.touch-table]="isTouchDevice">
+        <ng-container *ngIf="fichas_$ | async as fichas">
+          <div *ngFor="let c of t.col; let i = index"
+               class="row"
+               [style.top]="((c.x * cell) - cell) + 'px'"
+               [class.even]="i % 2 == 0 && i != 0"></div>
+          <div hammertime
+               *ngFor="let c of t.col; let i = index"
+               class="col"
+               [ngClass]="j.turno"
+               [style.left]="(c.x * cell) + 'px'"
+               [class.highlight]="
+              j.jugadores.azul &&
+              i === j.sCol &&
+              !j.fin &&
+              j.jugadores[j.turno].id == jugador.id
+            "
+               (mouseenter)="
+              !isTouchDevice &&
+                j.jugadores.azul &&
+                !j.fin &&
+                j.jugadores[j.turno].id == jugador.id &&
+                ws.moverFicha(j, t, fichas, i)
+            "
+               (click)="
+              !isTouchDevice &&
+                j.jugadores.azul &&
+                !j.fin &&
+                j.jugadores[j.turno].id == jugador.id &&
+                ws.tirarFicha(j, t, fichas, i)
+            "
+               (simpleTap)="
+              j.jugadores.azul &&
+                !j.fin &&
+                j.jugadores[j.turno].id == jugador.id &&
+                ws.moverFicha(j, t, fichas, i)
+            "
+               (doubleTap)="
+              j.jugadores.azul &&
+                !j.fin &&
+                j.jugadores[j.turno].id == jugador.id &&
+                ws.tirarFicha(j, t, fichas, i)
+            ">
             <div class="inner-col"></div>
           </div>
-          <ng-container *ngIf="j.jugadores.azul else waiting">
-            <game-info [game]="j" [player]="jugador"></game-info>
-            <ficha *ngFor="let f of fichas.rojo" [ngClass]="f.color" [style.left]="f.pos.x + 'px'" [style.top]="f.pos.y + 'px'"
-              [class.hidden]="!f.visible"></ficha>
-            <ficha *ngFor="let f of fichas.azul" [ngClass]="f.color" [style.left]="f.pos.x + 'px'" [style.top]="f.pos.y + 'px'"
-              [class.hidden]="!f.visible"></ficha>
+          <ng-container *ngIf="j.jugadores.azul; else waiting">
+            <game-info [game]="j"
+                       [player]="jugador"></game-info>
+            <ficha *ngFor="let f of fichas.rojo"
+                   [ngClass]="f.color"
+                   [style.left]="(f.pos.x * cell) + 'px'"
+                   [style.top]="(f.pos.y * cell) + 'px'"
+                   [class.hidden]="!f.visible"
+                   [class.winner]="f.winner"></ficha>
+            <ficha *ngFor="let f of fichas.azul"
+                   [ngClass]="f.color"
+                   [style.left]="(f.pos.x * cell) + 'px'"
+                   [style.top]="(f.pos.y * cell) + 'px'"
+                   [class.hidden]="!f.visible"
+                   [class.winner]="f.winner"></ficha>
           </ng-container>
           <ng-template #waiting>
             <gui>
-              <div class="waiting">
-                <div class="grow"></div>
-                <div class="align-center">WAITING FOR AN OPONENT</div>
-                <div class="grow"></div>
-              </div>
+              <app-waiting-dialog (cancel)="cancelWait()"></app-waiting-dialog>
             </gui>
           </ng-template>
         </ng-container>
         <ng-container *ngIf="j.fin">
           <gui>
-            <end-game-form [game]="j" (onRestart)="restart()"></end-game-form>
+            <end-game-form [game]="j"
+                           (onRestart)="restart()"></end-game-form>
           </gui>
         </ng-container>
-        
       </tablero>
     </ng-container>
   </ng-container>
-
   <ng-template #formconnection>
-    <tablero *ngIf="(tablero_$ | async) as t" [class.touch-table]="isTouchDevice">
-      <div *ngFor="let c of t.col; let i = index;" class="row" [style.top]="(c.x - 100) + 'px'" [class.even]="i % 2 == 0 && i != 0"></div>
-      <div *ngFor="let c of t.col; let i = index;" class="col" [style.left]="c.x + 'px'"></div>
-      <ng-container *ngIf="!(jugador_$ | async); else newgame">
-        <gui>
-          <new-user-form (onJoin)="newUser($event)"></new-user-form>
-        </gui>
-      </ng-container>
-      <ng-template #newgame>
-        <gui>
-          <new-game-form [juegos]="(juegos_$ | async)" (onNew)="newGame($event)" (onJoin)="joinGame($event)"></new-game-form>
-        </gui>
-      </ng-template>
-    </tablero>
+    <ng-container *ngIf="!(jugador_$ | async); else newgame">
+      <gui>
+        <new-user-form (onJoin)="newUser($event)"></new-user-form>
+      </gui>
+    </ng-container>
+    <ng-template #newgame>
+      <gui>
+        <new-game-form [juegos]="juegos_$ | async"
+                       (onNew)="newGame()"
+                       (onJoin)="joinGame($event)"></new-game-form>
+      </gui>
+    </ng-template>
+    <div class="app-title"></div>
   </ng-template>
 </div>
-
-<!-- <pre style="pointer-events: none; opacity: 0.3;">
-    ISTOUCH:
-    <span style="color:red;">{{isTouchDevice | json}}</span>
-    PLAYER: 
-    <span style="color:red;">{{(jugador_$ | async)?.name}}</span>
-    GAME:
-    <span style="color:blue;">{{(juego_$ | async)?.id}}</span>
-    PLAYERS:
-    <span style="color:green;">{{(jugadores_$ | async) | json}}</span>
-    GAMES:
-    <span style="color:magenta;">{{(juegos_$ | async) | json}}</span>
-  </pre> -->
+<ng-container *ngIf="juegoEnCurso">
+  <div class="chat-toggle"
+       (click)="toggleChat(true)">
+    <div class="chat-icon"></div>
+    <div *ngIf="alert"
+         class="chat-alert"><b>!</b></div>
+    <ng-container *ngFor="let a of alerts">
+      <div class="chat-alert-bubble"></div>
+    </ng-container>
+  </div>
+  <app-chat [class.displayed]="displayChat"
+            (close)="toggleChat(false)"></app-chat>
+</ng-container>

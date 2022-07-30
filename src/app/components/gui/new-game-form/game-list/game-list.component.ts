@@ -1,18 +1,16 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Juego } from 'src/app/models/juego';
 
 @Component({
   selector: 'game-list',
   templateUrl: './game-list.component.html',
-  styleUrls: ['./game-list.component.css']
+  styleUrls: ['./game-list.component.scss'],
 })
-export class GameListComponent{
+export class GameListComponent {
+  @Input() juegos: Juego[] = [];
+  @Output() onJoin = new EventEmitter<string>();
 
-  @Input()juegos;
-  @Output()onJoin = new EventEmitter<string>();
-
-  join(gameId){
+  join(gameId: string) {
     this.onJoin.next(gameId);
   }
-
-
 }

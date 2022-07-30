@@ -1,0 +1,74 @@
+:host {
+  color: var(--white);
+  font-size: calc(var(--cell) * 0.24);
+  position: absolute;
+  display: flex;
+  width: calc(var(--cell) * 7);
+  height: calc(var(--cell) / 2);
+  top: calc(var(--cell) * 6 + var(--cell) / 5);
+}
+:host .player-box-red,
+:host .player-box-blue {
+  width: calc(var(--cell) * 3.1);
+  padding: 2px;
+  display: flex;
+  align-items: center;
+}
+:host .player-box-red {
+  border: 2px solid var(--red);
+}
+
+:host .player-box-blue {
+  border: 2px solid var(--blue);
+}
+
+:host .highlight {
+  border: 2px solid var(--white);
+}
+
+:host .red-player,
+:host .blue-player {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+:host .red-player {
+  background: var(--red);
+  padding-left: calc(var(--cell) / 10);
+  justify-content: flex-start;
+}
+
+:host .blue-player {
+  background: var(--blue);
+  padding-right: calc(var(--cell) / 10);
+  justify-content: flex-end;
+}
+
+:host .box-vs {
+  width: calc(var(--cell) * 0.9);
+  margin: 0px calc(var(--cell) / 10);
+  display: flex;
+  padding: 2px;
+  border: 2px solid var(--grey);
+}
+
+:host .player-vs {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--grey);
+}
+
+:host .blink {
+  animation: blinker2 0.4s linear infinite;
+  -webkit-animation: blinker2 0.4s linear infinite;
+}
+
+@keyframes blinker2 {
+  50% {
+    border: 2px solid #ffffff00;
+  }
+}

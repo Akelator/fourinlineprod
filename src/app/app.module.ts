@@ -1,36 +1,29 @@
-import { AnimationsService } from './services/animations.service';
-import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { BrowserModule } from '@angular/platform-browser';
+import { SocketIoConfig, SocketIoModule } from 'ngx-socket-io';
 
-
+import { environment } from './../environments/environment';
 import { AppComponent } from './app.component';
+import { ChatComponent } from './components/chat/chat.component';
 import { FichaComponent } from './components/ficha/ficha.component';
-import { TableroComponent } from './components/tablero/tablero.component';
-import { JuegoService } from './services/juego.service';
+import { GameInfoComponent } from './components/game-info/game-info.component';
+import { EndGameFormComponent } from './components/gui/end-game-form/end-game-form.component';
 import { GuiComponent } from './components/gui/gui.component';
+import { GameListComponent } from './components/gui/new-game-form/game-list/game-list.component';
+import { NewGameFormComponent } from './components/gui/new-game-form/new-game-form.component';
+import { NewUserFormComponent } from './components/gui/new-user-form/new-user-form.component';
+import { WaitingDialogComponent } from './components/gui/waiting-dialog/waiting-dialog.component';
+import { TableroComponent } from './components/tablero/tablero.component';
+import { HammertimeDirective } from './directives/hammertime.directive';
+import { AnimationsService } from './services/animations.service';
+import { JuegoService } from './services/juego.service';
 import { SocketsService } from './services/sockets.service';
 
-import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
-import { NewUserFormComponent } from './components/gui/new-user-form/new-user-form.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { NewGameFormComponent } from './components/gui/new-game-form/new-game-form.component';
-import { GameListComponent } from './components/gui/new-game-form/game-list/game-list.component';
-import { EndGameFormComponent } from './components/gui/end-game-form/end-game-form.component';
-import { GameInfoComponent } from './components/game-info/game-info.component';
-import { DeviceDetectorModule } from 'ngx-device-detector';
-
-// import * as Hammer from 'hammerjs';
-// import { HammerGestureConfig, HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
-import { HammertimeDirective } from './directives/hammertime.directive';
-
-// export class MyHammerConfig extends HammerGestureConfig {
-//   overrides = <any>{
-//     'swipe': { direction: Hammer.DIRECTION_ALL }
-//   }
-// }
-
-const config: SocketIoConfig = { url: 'wss://fourinline.herokuapp.com/', options: {'forceNew': true}};
-
+const config: SocketIoConfig = {
+  url: environment.server,
+  options: { reconnection: true },
+};
 @NgModule({
   declarations: [
     AppComponent,
@@ -43,23 +36,16 @@ const config: SocketIoConfig = { url: 'wss://fourinline.herokuapp.com/', options
     EndGameFormComponent,
     GameInfoComponent,
     HammertimeDirective,
+    WaitingDialogComponent,
+    ChatComponent,
   ],
   imports: [
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
     SocketIoModule.forRoot(config),
-    DeviceDetectorModule.forRoot(),
   ],
-  providers: [
-    JuegoService, 
-    AnimationsService, 
-    SocketsService,
-    // {
-    //   provide: HAMMER_GESTURE_CONFIG,
-    //   useClass: MyHammerConfig,
-    // }
-  ],
-  bootstrap: [AppComponent]
+  providers: [JuegoService, AnimationsService, SocketsService],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
