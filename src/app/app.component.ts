@@ -103,6 +103,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
   private setCellSize(size: number = CELL): void {
     this.cell = size;
+    console.log(this.cell);
     this.cellSize = this.sanitizer.bypassSecurityTrustStyle(
       `--cell: ${this.cell}px`
     );
