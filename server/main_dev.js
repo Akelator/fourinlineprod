@@ -30,10 +30,8 @@ io.on("connection", function (socket) {
       socket.emit("new-player", newPlayer);
       players.push(newPlayer);
       io.sockets.emit("games", games);
-      console.log("- PLAYER ADDED");
     } else {
       io.sockets.emit("name-in-use");
-      console.log("- ALREDY EXISTS");
     }
   });
 
@@ -87,7 +85,6 @@ io.on("connection", function (socket) {
   });
 
   socket.on("chat-msg", function (msgEvent) {
-    console.log(msgEvent);
     socket.to(msgEvent.addresseeId).emit("chat-event", msgEvent.msg);
   });
 
