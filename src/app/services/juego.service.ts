@@ -15,6 +15,26 @@ export class JuegoService {
   private _juego: Juego | undefined;
   private empieza: 'rojo' | 'azul' = 'rojo';
 
+  private _jugadores = new BehaviorSubject<Jugador[] | null>(null);
+  jugadores_$ = this._jugadores.asObservable();
+  private _jugador = new BehaviorSubject<Jugador | null>(null);
+  jugador_$ = this._jugador.asObservable();
+  private _juegos = new BehaviorSubject<Juego[] | null>(null);
+  juegos_$ = this._juegos.asObservable();
+  private _tablero = new BehaviorSubject<Tablero>(new Tablero());
+  tablero_$ = this._tablero.asObservable();
+  private _fichas = new BehaviorSubject<Fichas>(new Fichas());
+  fichas_$ = this._fichas.asObservable();
+
+  private jugadores = this._jugadores.value;
+  private juegos = this._juegos.value;
+  private tablero = this._tablero.value;
+  private fichas = this._fichas.value;
+
+  constructor(private anim: AnimationsService) {
+    this.iniciarTablero(this.tablero);
+  }
+
   set juego(juego: Juego | undefined) {
     this._juego = juego;
   }
@@ -41,26 +61,6 @@ export class JuegoService {
 
   get jugador(): Jugador | null {
     return this._jugador.value;
-  }
-
-  private _jugadores = new BehaviorSubject<Jugador[] | null>(null);
-  jugadores_$ = this._jugadores.asObservable();
-  private _jugador = new BehaviorSubject<Jugador | null>(null);
-  jugador_$ = this._jugador.asObservable();
-  private _juegos = new BehaviorSubject<Juego[] | null>(null);
-  juegos_$ = this._juegos.asObservable();
-  private _tablero = new BehaviorSubject<Tablero>(new Tablero());
-  tablero_$ = this._tablero.asObservable();
-  private _fichas = new BehaviorSubject<Fichas>(new Fichas());
-  fichas_$ = this._fichas.asObservable();
-
-  private jugadores = this._jugadores.value;
-  private juegos = this._juegos.value;
-  private tablero = this._tablero.value;
-  private fichas = this._fichas.value;
-
-  constructor(private anim: AnimationsService) {
-    this.iniciarTablero(this.tablero);
   }
 
   actualizarJugadores(jugadores: Jugador[]): void {

@@ -10,7 +10,6 @@ export class AnimationsService {
   private intervaloMover: any;
 
   public mover(f: Ficha, col: Columna, d: number) {
-    //d = 1;
     clearInterval(this.intervaloMover);
     const from = new Pos(f.pos.x, f.pos.y);
     const to = new Pos(col.x, f.pos.y);
@@ -39,7 +38,6 @@ export class AnimationsService {
   }
 
   public tirar(f: Ficha, cas: Casilla, d: number): Observable<any> {
-    //d = 2;
     const from = new Pos(cas.pos.x, f.pos.y);
     const to = new Pos(cas.pos.x, cas.pos.y);
     const move = new Pos(to.x - from.x, to.y - from.y);
