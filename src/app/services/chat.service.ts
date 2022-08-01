@@ -1,5 +1,5 @@
-import { BehaviorSubject } from 'rxjs';
 import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 
 import { ChatMsg } from './../models/chat';
 import { JuegoService } from './juego.service';
@@ -16,6 +16,8 @@ export class ChatService {
 
   private _alert = false;
 
+  constructor(private juegoService: JuegoService) {}
+
   get alert(): boolean {
     return this._alert;
   }
@@ -23,8 +25,6 @@ export class ChatService {
   set alert(alert: boolean) {
     this._alert = alert;
   }
-
-  constructor(private juegoService: JuegoService) {}
 
   get chat(): ChatMsg[] {
     return this._chatList;

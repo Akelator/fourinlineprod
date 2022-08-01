@@ -31,7 +31,6 @@ io.on("connection", function (socket) {
       };
       socket.emit("new-player", newPlayer);
       players.push(newPlayer);
-      io.sockets.emit("players", players);
       io.sockets.emit("games", games);
       console.log("- PLAYER ADDED");
     } else {
@@ -99,7 +98,6 @@ io.on("connection", function (socket) {
     var playerIndex = players.indexOf(players.find((p) => p.id === id));
     if (playerIndex >= 0) {
       players.splice(playerIndex, 1);
-      io.sockets.emit("players", players);
     }
 
     var gameIndex = getGameIndex(id);

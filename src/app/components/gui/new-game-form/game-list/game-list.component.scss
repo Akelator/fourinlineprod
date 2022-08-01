@@ -23,28 +23,28 @@
   color: var(--white);
 }
 :host .game-list-grey {
-  background: var(--grey);
+  background-color: var(--grey);
 }
 :host .game-list-red {
-  background: var(--red);
+  background-color: var(--red);
 }
 
 :host .game-list-blue {
-  background: var(--blue);
+  background-color: var(--blue);
   text-align: right;
 }
 :host .game-list-green {
-  background: var(--cyan);
+  background-color: var(--cyan);
   text-align: right;
   animation: joinblinker 0.5s ease-in-out infinite;
-  transform: 200ms;
+  transform: var(--fast-animation);
   &:hover {
-    background: var(--cyanhover);
+    background-color: var(--cyanhover);
     cursor: pointer;
   }
 }
 :host .game-list-vs {
-  background: var(--grey);
+  background-color: var(--grey);
   flex-grow: 1;
   padding: 10px;
   text-align: center;
@@ -53,6 +53,6 @@
 
 @keyframes joinblinker {
   50% {
-    background: var(--cyanhover);
+    background-color: var(--cyanhover);
   }
 }

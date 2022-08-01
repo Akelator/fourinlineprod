@@ -19,11 +19,11 @@
     display: none;
   }
   .rojo .ficha {
-    background: var(--red);
+    background-color: var(--red);
   }
 
   .azul .ficha {
-    background: var(--blue);
+    background-color: var(--blue);
   }
   ficha.winner .ficha {
     animation: fichablinker 0.5s ease-in-out infinite;

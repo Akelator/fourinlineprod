@@ -27,13 +27,12 @@
   cursor: pointer;
   box-shadow: var(--shadow);
   .chat-icon {
-    // background-image: url("/../../../assets/chat.svg");
     background-image: url("/assets/chat.svg");
     background-size: contain;
     width: 100%;
     height: 100%;
   }
-  transition: 200ms;
+  transition: var(--fast-animation);
   &:hover {
     width: 50px;
     padding: 5px 15px 5px 5px;
@@ -84,7 +83,6 @@
   top: 0px;
   left: 0px;
   z-index: 1;
-  // background-image: url("/../../../assets/title.svg");
   background-image: url("/assets/title.svg");
   background-size: contain;
   background-position: center center;

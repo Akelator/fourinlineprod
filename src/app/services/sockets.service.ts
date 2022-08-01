@@ -54,11 +54,6 @@ export class SocketsService implements OnDestroy {
       }
     });
 
-    this.socket.on('players', (players: any) => {
-      this.players = players;
-      this.juegoService.actualizarJugadores(this.players);
-    });
-
     this.socket.on('games', (games: Juego[]) => {
       this.games = new Array<Juego>();
       games.forEach((g) => {

@@ -12,11 +12,6 @@ import { AnimationsService } from './animations.service';
 export class JuegoService {
   tirando = false;
 
-  private _juego: Juego | undefined;
-  private empieza: 'rojo' | 'azul' = 'rojo';
-
-  private _jugadores = new BehaviorSubject<Jugador[] | null>(null);
-  jugadores_$ = this._jugadores.asObservable();
   private _jugador = new BehaviorSubject<Jugador | null>(null);
   jugador_$ = this._jugador.asObservable();
   private _juegos = new BehaviorSubject<Juego[] | null>(null);
@@ -26,10 +21,11 @@ export class JuegoService {
   private _fichas = new BehaviorSubject<Fichas>(new Fichas());
   fichas_$ = this._fichas.asObservable();
 
-  private jugadores = this._jugadores.value;
   private juegos = this._juegos.value;
+  private _juego: Juego | undefined;
   private tablero = this._tablero.value;
   private fichas = this._fichas.value;
+  private empieza: 'rojo' | 'azul' = 'rojo';
 
   constructor(private anim: AnimationsService) {
     this.iniciarTablero(this.tablero);
@@ -61,11 +57,6 @@ export class JuegoService {
 
   get jugador(): Jugador | null {
     return this._jugador.value;
-  }
-
-  actualizarJugadores(jugadores: Jugador[]): void {
-    this.jugadores = jugadores;
-    this._jugadores.next(this.jugadores);
   }
 
   actualizarJuegos(juegos: Juego[]): void {

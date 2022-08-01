@@ -9,7 +9,7 @@ import { interval } from 'rxjs';
 export class AnimationsService {
   private intervaloMover: any;
 
-  public mover(f: Ficha, col: Columna, d: number) {
+  mover(f: Ficha, col: Columna, d: number): void {
     clearInterval(this.intervaloMover);
     const from = new Pos(f.pos.x, f.pos.y);
     const to = new Pos(col.x, f.pos.y);
@@ -23,21 +23,13 @@ export class AnimationsService {
         f.pos = to;
       } else {
         t /= d / 2;
-        if (t < 1) {
-          let x = (c.x / 2) * t * t * t + from.x;
-          let y = (c.y / 2) * t * t * t + from.y;
-          f.pos = new Pos(x, y);
-        } else {
-          t -= 2;
-          let x = (c.x / 2) * (t * t * t + 2) + from.x;
-          let y = (c.y / 2) * (t * t * t + 2) + from.y;
-          f.pos = new Pos(x, y);
-        }
+        if (t < 1) f.pos = this.updatePosition1(c, t, from);
+        else f.pos = this.updatePosition2(c, t, from);
       }
     }, 1);
   }
 
-  public tirar(f: Ficha, cas: Casilla, d: number): Observable<any> {
+  tirar(f: Ficha, cas: Casilla, d: number): Observable<boolean> {
     const from = new Pos(cas.pos.x, f.pos.y);
     const to = new Pos(cas.pos.x, cas.pos.y);
     const move = new Pos(to.x - from.x, to.y - from.y);
@@ -56,5 +48,18 @@ export class AnimationsService {
 
   private current(): number {
     return new Date().getTime() / 1000;
+  }
+
+  private updatePosition1(c: Pos, t: number, from: Pos): Pos {
+    const x = (c.x / 2) * t * t * t + from.x;
+    const y = (c.y / 2) * t * t * t + from.y;
+    return new Pos(x, y);
+  }
+
+  private updatePosition2(c: Pos, t: number, from: Pos): Pos {
+    t -= 2;
+    const x = (c.x / 2) * (t * t * t + 2) + from.x;
+    const y = (c.y / 2) * (t * t * t + 2) + from.y;
+    return new Pos(x, y);
   }
 }

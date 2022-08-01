@@ -34,7 +34,7 @@
     height: var(--cell);
     &:not(:first-child) {
       border: 1px solid var(--lines);
-      background: var(--white);
+      background-color: var(--white);
     }
   }
 
@@ -44,7 +44,7 @@
     height: calc(var(--cell) * 6);
     box-sizing: border-box;
     border: 1px solid var(--lines);
-    transition: 200ms;
+    transition: background-color var(--fast-animation);
   }
 
   .col.rojo.highlight .inner-col {

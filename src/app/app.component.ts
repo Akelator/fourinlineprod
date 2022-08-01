@@ -19,7 +19,6 @@ import { SoundsService } from './services/sounds.service';
 })
 export class AppComponent implements OnInit, OnDestroy {
   jugador_$: Observable<Jugador | null>;
-  jugadores_$: Observable<Jugador[] | null>;
   juegos_$: Observable<Juego[] | null>;
   tablero_$: Observable<Tablero>;
   fichas_$: Observable<Fichas>;
@@ -41,7 +40,6 @@ export class AppComponent implements OnInit, OnDestroy {
     private soundsService: SoundsService
   ) {
     this.jugador_$ = this.juegoService.jugador_$;
-    this.jugadores_$ = this.juegoService.jugadores_$;
     this.juegos_$ = this.juegoService.juegos_$;
     this.tablero_$ = this.juegoService.tablero_$;
     this.fichas_$ = this.juegoService.fichas_$;
@@ -103,7 +101,6 @@ export class AppComponent implements OnInit, OnDestroy {
 
   private setCellSize(size: number = CELL): void {
     this.cell = size;
-    console.log(this.cell);
     this.cellSize = this.sanitizer.bypassSecurityTrustStyle(
       `--cell: ${this.cell}px`
     );

@@ -34,13 +34,13 @@
   align-items: center;
 }
 :host .red-player {
-  background: var(--red);
+  background-color: var(--red);
   padding-left: calc(var(--cell) / 10);
   justify-content: flex-start;
 }
 
 :host .blue-player {
-  background: var(--blue);
+  background-color: var(--blue);
   padding-right: calc(var(--cell) / 10);
   justify-content: flex-end;
 }
@@ -59,7 +59,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--grey);
+  background-color: var(--grey);
 }
 
 :host .blink {
